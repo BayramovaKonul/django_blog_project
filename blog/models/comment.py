@@ -16,3 +16,7 @@ class CommentModel(models.Model):
         db_table = 'comment'
         verbose_name = 'comment'
         verbose_name_plural = 'Comments'
+
+
+    def __str__(self):
+        return f"{self.article}, {self.user.username}"

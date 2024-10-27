@@ -12,3 +12,10 @@ class ArticleAdmin(admin.ModelAdmin):
     list_filter = ['created_at']
 
 admin.site.register(CommentModel)
+
+@admin.register(CommentModel)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['content', 'article', 'created_at'] # which fields should be shown
+    list_display_links = ['article', 'created_at'] # make each field a link
+    search_fields = ['user', 'article'] # search can be done by title and content
+    list_filter = ['created_at']
