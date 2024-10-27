@@ -17,6 +17,6 @@ class ArticleAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['content', 'article', 'user', 'created_at'] # which fields should be shown
     list_display_links = ['user', 'article'] # make each field a link
-    search_fields = ['user', 'article'] # search can be done by title and content
+    search_fields = ['content'] 
     list_filter = ['created_at']
 
