@@ -12,7 +12,6 @@ class ArticleAdmin(admin.ModelAdmin):
     list_filter = ['created_at']
 
 
-
 @admin.register(CommentModel)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['content', 'article', 'user', 'created_at'] # which fields should be shown
@@ -21,5 +20,10 @@ class CommentAdmin(admin.ModelAdmin):
     # i could not search for article and user, since i wrote user__user and article__article.
     list_filter = ['created_at']
 
+@admin.register(ContactUsModel)
+class CommentUsAdmin(admin.ModelAdmin):
+    list_display = ['subject', 'message','created_at'] 
+    list_display_links = ['subject', 'message'] 
+    search_fields = ['subject'] 
+    list_filter = ['created_at']
 
-admin.site.register(ContactUsModel)
