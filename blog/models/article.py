@@ -3,6 +3,7 @@ from autoslug import AutoSlugField
 # from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from .category import CategoryModel
+#from .abtract_models import CreationDateAbstractModel
 User = get_user_model()
 
 class ArticleModel(models.Model):
