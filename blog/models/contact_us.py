@@ -1,10 +1,10 @@
 from django.db import models
 from autoslug import AutoSlugField
 from django.contrib.auth import get_user_model
-
+from .abstract_models import CreationDateAbstractModel
 User = get_user_model()
 
-class ContactUsModel(models.Model):
+class ContactUsModel(CreationDateAbstractModel):
     class StageChoices(models.TextChoices):
         NEW = 'new', 'New'
         IN_REVIEW = 'in_review', 'In Review'
@@ -16,8 +16,6 @@ class ContactUsModel(models.Model):
     email = models.EmailField(null = False)
     subject = models.CharField(max_length=200)
     message = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
     stage = models.CharField(max_length=20, choices=StageChoices.choices, default=StageChoices.NEW)
     assigned_to = models.ForeignKey(User, on_delete=models.SET_NULL, null = True, blank=True,
                              related_name="assigned")
