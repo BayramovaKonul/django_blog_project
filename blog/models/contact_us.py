@@ -1,7 +1,7 @@
 from django.db import models
 from autoslug import AutoSlugField
 from django.contrib.auth import get_user_model
-
+#from .abtract_models import CreationDateAbstractModel
 User = get_user_model()
 
 class ContactUsModel(models.Model):
