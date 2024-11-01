@@ -7,3 +7,9 @@ def my_blogs(request):
 
 def my_blog_details(request):
     return HttpResponse('<h1>All information about my blog</h1>')
+
+def home (request):
+    return render(request, 'index.html')
+
+def about (request):
+    return render(request, 'about.html')
