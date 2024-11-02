@@ -1,0 +1,48 @@
+{%extends "base.html" %}
+{%load static%}
+{%block title%} User {%endblock%}
+
+{%block main%} 
+
+    <div class="blog pb-5">
+        <div class="container">
+            <!-- about -->
+            <section class="section user">
+                <div class="section-center user-center">
+                    <!-- user img -->
+                    <article class="user-img">
+                        <img src="{% static 'img/user.jpg' %}" class="hero-photo" alt="" />
+                    </article>
+                    <!-- user info -->
+                    <article class="user-info">
+                        <!-- section title -->
+                        <div class="section-title user-title">
+                            <h2>user</h2>
+                            <div class="underline"></div>
+                        </div>
+                        <!-- section title -->
+                        <!-- lorem 40 -->
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
+                            atque incidunt eveniet nisi beatae aliquid illo magni ullam animi
+                            vero, eius cum debitis hic doloribus assumenda ducimus? Ducimus,
+                            expedita, maiores velit quo facilis qui hic voluptatum voluptas ea
+                            officiis maxime?
+                        </p>
+                        <!-- lorem 40 -->
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
+                            atque incidunt eveniet nisi beatae aliquid illo magni ullam animi
+                            vero, eius cum debitis hic doloribus assumenda ducimus? Ducimus,
+                            expedita, maiores velit quo facilis qui hic voluptatum voluptas ea
+                            officiis maxime?
+                        </p>
+                        <a href="user.html" class="btn user-btn">user me</a>
+                    </article>
+                </div>
+            </section>
+            <!-- end of about about -->
+        </div>
+    </div>
+
+{%endblock%}

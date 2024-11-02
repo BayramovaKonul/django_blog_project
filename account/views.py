@@ -3,8 +3,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
 
-def user_info(request, id):
-    return HttpResponse(f'<h1>The information of the user {id} </h1>')
+def user(request):
+    return render(request, 'user.html')
 
-def user_pic(request, username):
-    return HttpResponse(f'<h1>The pictures of the user {username} </h1>')
+def login(request):
+    return render(request, 'login.html')
+
+def register(request):
+    return render(request, 'register.html')

@@ -1,4 +1,5 @@
 {%extends "base.html" %}
+{%load static%}
 {%block title%} Home {%endblock%}
 
 {%block main%}
@@ -18,7 +19,7 @@
                                 <!-- banner-img -->
                                 <article class="banner-img">
                                     <div class="banner-picture-container">
-                                        <img src="./img/slide1.jpg" alt="tea kettle" class="banner-picture" />
+                                        <img src="{% static 'img/slide1.jpg' %}" alt="tea kettle" class="banner-picture" />
                                     </div>
                                 </article>
                                 <!-- banner-info -->
@@ -48,7 +49,7 @@
                                 <!-- banner-img -->
                                 <article class="banner-img">
                                     <div class="banner-picture-container">
-                                        <img src="./img/slide2.jpg" alt="tea kettle" class="banner-picture" />
+                                        <img src="{% static 'img/slide2.jpg' %}" alt="tea kettle" class="banner-picture" />
                                     </div>
                                 </article>
                                 <!-- banner-info -->
@@ -78,7 +79,7 @@
                                 <!-- banner-img -->
                                 <article class="banner-img">
                                     <div class="banner-picture-container">
-                                        <img src="./img/slide3.jpg" alt="tea kettle" class="banner-picture" />
+                                        <img src="{% static 'img/slide3.jpg' %}" alt="tea kettle" class="banner-picture" />
                                     </div>
                                 </article>
                                 <!-- banner-info -->
@@ -131,7 +132,7 @@
                     <!-- single post -->
                     <a href="detail.html" class="project-1">
                         <article class="project">
-                            <img src="./img/blog1.jpg" alt="" class="project-img" />
+                            <img src="{% static 'img/slide1.jpg' %}" alt="" class="project-img" />
                             <div class="project-info">
                                 <h4>How to learning python?</h4>
                                 <p>Python</p>
@@ -142,7 +143,7 @@
                     <!-- single post -->
                     <a href="detail.html" class="project-2">
                         <article class="project">
-                            <img src="./img/blog2.jpg" alt="" class="project-img" />
+                            <img src="{% static 'img/slide2.jpg' %}" alt="" class="project-img" />
                             <div class="project-info">
                                 <h4>Nothing is impossible</h4>
                                 <p>Journal</p>
@@ -153,7 +154,7 @@
                     <!-- single post -->
                     <a href="detail.html" class="project-3">
                         <article class="project">
-                            <img src="./img/slide1.jpg" alt="" class="project-img" />
+                            <img src="{% static 'img/slide1.jpg' %}" alt="" class="project-img" />
                             <div class="project-info">
                                 <h4>Lorem ipsum dolor sit.</h4>
                                 <p>Life Style</p>
@@ -164,7 +165,7 @@
                     <!-- single project -->
                     <a href="detail.html" class="project-4">
                         <article class="project">
-                            <img src="./img/blog3.jpg" alt="" class="project-img" />
+                            <img src="{% static 'img/blog3.jpg' %}" alt="" class="project-img" />
                             <div class="project-info">
                                 <h4>Lorem ipsum dolor sit.</h4>
                                 <p>Education</p>
@@ -259,7 +260,7 @@
                                     <!-- single blog -->
                                     <article class="blog-card">
                                         <div class="blog-img-container">
-                                            <a href="#"><img src="./img/blog1.jpg" class="blog-img" alt="" /></a>
+                                            <a href="#"><img src="{% static 'img/blog1.jpg' %}" class="blog-img" alt="" /></a>
                                             <p class="blog-date">august 26th, 2020</p>
                                         </div>
                                         <!-- blog info -->
@@ -296,7 +297,7 @@
                                     <!-- single blog -->
                                     <article class="blog-card">
                                         <div class="blog-img-container">
-                                            <a href="#"><img src="./img/blog2.jpg" class="blog-img" alt="" /></a>
+                                            <a href="#"><img src="{% static 'img/blog2.jpg' %}" class="blog-img" alt="" /></a>
                                             <p class="blog-date">august 26th, 2020</p>
                                         </div>
                                         <!-- blog info -->
@@ -333,7 +334,7 @@
                                     <!-- single blog -->
                                     <article class="blog-card">
                                         <div class="blog-img-container">
-                                            <a href="#"><img src="./img/blog3.jpg" class="blog-img" alt="" /></a>
+                                            <a href="#"><img src="{% static 'img/blog3.jpg' %}" class="blog-img" alt="" /></a>
                                             <p class="blog-date">august 26th, 2020</p>
                                         </div>
                                         <!-- blog info -->
@@ -370,7 +371,7 @@
                                     <!-- single blog -->
                                     <article class="blog-card">
                                         <div class="blog-img-container">
-                                            <a href="#"><img src="./img/blog3.jpg" class="blog-img" alt="" /></a>
+                                            <a href="#"><img src="{% static 'img/blog3.jpg' %}" class="blog-img" alt="" /></a>
                                             <p class="blog-date">august 26th, 2020</p>
                                         </div>
                                         <!-- blog info -->
