@@ -19,3 +19,9 @@ def contact (request):
 
 def blogs (request):
     return render(request, 'blog.html')
+
+def category (request):
+    return render(request, 'category.html')
+
+def detail (request,id):
+    return render(request, 'detail.html')
