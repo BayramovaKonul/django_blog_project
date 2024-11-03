@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{%load static%}
 {% block title%} Blogs {% endblock %}
 
 {%block main%}
@@ -21,7 +22,7 @@
                                     <!-- single blog -->
                                     <article class="blog-card">
                                         <div class="blog-img-container">
-                                            <a href="#"><img src="./img/blog1.jpg" class="blog-img" alt="" /></a>
+                                            <a href="#"><img src="{% static 'img/blog1.jpg' %}" class="blog-img" alt="" /></a>
                                             <p class="blog-date">august 26th, 2020</p>
                                         </div>
                                         <!-- blog info -->
@@ -58,7 +59,7 @@
                                     <!-- single blog -->
                                     <article class="blog-card">
                                         <div class="blog-img-container">
-                                            <a href="#"><img src="./img/blog2.jpg" class="blog-img" alt="" /></a>
+                                            <a href="#"><img src="{% static 'img/blog2.jpg' %}" class="blog-img" alt="" /></a>
                                             <p class="blog-date">august 26th, 2020</p>
                                         </div>
                                         <!-- blog info -->
@@ -95,7 +96,7 @@
                                     <!-- single blog -->
                                     <article class="blog-card">
                                         <div class="blog-img-container">
-                                            <a href="#"><img src="./img/blog3.jpg" class="blog-img" alt="" /></a>
+                                            <a href="#"><img src="{% static 'img/blog3.jpg' %}" class="blog-img" alt="" /></a>
                                             <p class="blog-date">august 26th, 2020</p>
                                         </div>
                                         <!-- blog info -->
@@ -132,7 +133,7 @@
                                     <!-- single blog -->
                                     <article class="blog-card">
                                         <div class="blog-img-container">
-                                            <a href="#"><img src="./img/blog3.jpg" class="blog-img" alt="" /></a>
+                                            <a href="#"><img src="{% static 'img/blog3.jpg' %}" class="blog-img" alt="" /></a>
                                             <p class="blog-date">august 26th, 2020</p>
                                         </div>
                                         <!-- blog info -->
@@ -334,7 +335,7 @@
                         <!-- img container -->
                         <div class="service-img-container">
                             <!-- img -->
-                            <img src="./img/profil.png" class="service-img" alt="single service" />
+                            <img src="{% static 'img/profil.png' %}" class="service-img" alt="single service" />
                             <!-- service icon -->
                             <span class="service-icon">
                                 <i class="fas fa-user fa-fw"></i>
@@ -401,7 +402,7 @@
                             <a href="#" aria-current="true">
                                 <div class="row mb-3">
                                     <div class="col-4">
-                                        <img src="./img/blog1.jpg" class="thumbnail" alt="...">
+                                        <img src="{% static 'img/blog1.jpg' %}" class="thumbnail" alt="...">
                                     </div>
                                     <div class="col-8 recent-post">
                                         <h5>Lorem ipsum dolor sit</h5>
@@ -412,7 +413,7 @@
                             <a href="#" aria-current="true">
                                 <div class="row mb-4">
                                     <div class="col-4">
-                                        <img src="./img/blog2.jpg" class="thumbnail" alt="...">
+                                        <img src="{% static 'img/blog2.jpg' %}" class="thumbnail" alt="...">
                                     </div>
                                     <div class="col-8 recent-post">
                                         <h5>How it is django</h5>
@@ -423,7 +424,7 @@
                             <a href="#" aria-current="true">
                                 <div class="row mb-4">
                                     <div class="col-4">
-                                        <img src="./img/blog3.jpg" class="thumbnail" alt="...">
+                                        <img src="{% static 'img/blog3.jpg' %}" class="thumbnail" alt="...">
                                     </div>
                                     <div class="col-8 recent-post">
                                         <h5>What happened..?</h5>
@@ -434,7 +435,7 @@
                             <a href="#" aria-current="true">
                                 <div class="row mb-4">
                                     <div class="col-4">
-                                        <img src="./img/blog1.jpg" class="thumbnail" alt="...">
+                                        <img src="{% static 'img/blog1.jpg' %}" class="thumbnail" alt="...">
                                     </div>
                                     <div class="col-8 recent-post">
                                         <h5>First journal for me</h5>

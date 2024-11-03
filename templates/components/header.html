@@ -1,9 +1,10 @@
+   {%load static%}
     <!-- navbar -->
     <nav class="nav" id="nav">
         <div class="nav-center">
             <!-- nav header -->
             <div class="nav-header">
-                <img src="./img/logo.png" class="nav-logo" alt="" />
+                <img src="{% static 'img/logo.png' %}" class="nav-logo" alt="" />
                 <button class="nav-btn" id="nav-btn">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -32,9 +33,9 @@
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="UserDropdown">
-                        <li><a class="dropdown-item" href="user.html">User</a></li>
-                        <li><a class="dropdown-item" href="login.html">login</a></li>
-                        <li><a class="dropdown-item" href="register.html">regster</a></li>
+                        <li><a class="dropdown-item" href="{%url 'user' %}">User</a></li>
+                        <li><a class="dropdown-item" href="{%url 'login' %}">login</a></li>
+                        <li><a class="dropdown-item" href="{% url 'register' %}">regster</a></li>
                     </ul>
                 </div>
             </ul>
