@@ -18,33 +18,32 @@
                         <!-- featured-center -->
                         <div class="section-center featured-center ">
                             <div class="row justify-content-start">
-                                <div class="col-lg-6">
+                            {%for blog in page_obj%}
+                            <div class="col-lg-6">
                                     <!-- single blog -->
                                     <article class="blog-card">
                                         <div class="blog-img-container">
-                                            <a href="#"><img src="{% static 'img/blog1.jpg' %}" class="blog-img" alt="" /></a>
-                                            <p class="blog-date">august 26th, 2020</p>
+                                            <a href="#"><img src="{{blog.picture.url}}" class="blog-img" alt="" /></a>
+                                            <p class="blog-date">{{blog.created_at | date:"F jS, Y"}}</p>
                                         </div>
                                         <!-- blog info -->
                                         <div class="blog-info">
                                             <div class="blog-title">
                                                 <a href="#">
-                                                    <h4>Tibet Adventure ?</h4>
+                                                    <h4>{{blog.title}}</h4>
                                                 </a>
                                                 <a href="#">
-                                                    <p>Education</p>
+                                                    <p>blog.categories.first.slug | capfirst</p>
                                                 </a>
                                             </div>
                                             <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                                vitae tempore voluptatum maxime reprehenderit eum quod
-                                                exercitationem fugit, qui corporis.
+                                                {{blog.content | truncatechars:200}}
                                             </p>
                                             <!-- blog footer -->
                                             <div class="blog-footer">
                                                 <a href="">
                                                     <p>
-                                                        <span><i class="fas fa-user"></i></span> Darisset
+                                                        <span><i class="fas fa-user"></i></span> {{blog.author.username}}
                                                     </p>
                                                 </a>
                                                 <a href="#">
@@ -54,125 +53,41 @@
                                         </div>
                                     </article>
                                     <!-- end of single blog -->
-                                </div>
-                                <div class="col-lg-6">
-                                    <!-- single blog -->
-                                    <article class="blog-card">
-                                        <div class="blog-img-container">
-                                            <a href="#"><img src="{% static 'img/blog2.jpg' %}" class="blog-img" alt="" /></a>
-                                            <p class="blog-date">august 26th, 2020</p>
-                                        </div>
-                                        <!-- blog info -->
-                                        <div class="blog-info">
-                                            <div class="blog-title">
-                                                <a href="#">
-                                                    <h4>Tibet Adventure</h4>
-                                                </a>
-                                                <a href="#">
-                                                    <p>Life Style</p>
-                                                </a>
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                                vitae tempore voluptatum maxime reprehenderit eum quod
-                                                exercitationem fugit, qui corporis.
-                                            </p>
-                                            <!-- blog footer -->
-                                            <div class="blog-footer">
-                                                <a href="">
-                                                    <p>
-                                                        <span><i class="fas fa-user"></i></span> Darisset
-                                                    </p>
-                                                </a>
-                                                <a href="#">
-                                                    <p>Read More...</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <!-- end of single blog -->
-                                </div>
-                                <div class="col-lg-6">
-                                    <!-- single blog -->
-                                    <article class="blog-card">
-                                        <div class="blog-img-container">
-                                            <a href="#"><img src="{% static 'img/blog3.jpg' %}" class="blog-img" alt="" /></a>
-                                            <p class="blog-date">august 26th, 2020</p>
-                                        </div>
-                                        <!-- blog info -->
-                                        <div class="blog-info">
-                                            <div class="blog-title">
-                                                <a href="#">
-                                                    <h4>Tibet Adventure</h4>
-                                                </a>
-                                                <a href="#">
-                                                    <p>Journal</p>
-                                                </a>
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                                vitae tempore voluptatum maxime reprehenderit eum quod
-                                                exercitationem fugit, qui corporis.
-                                            </p>
-                                            <!-- blog footer -->
-                                            <div class="blog-footer">
-                                                <a href="">
-                                                    <p>
-                                                        <span><i class="fas fa-user"></i></span> Darisset
-                                                    </p>
-                                                </a>
-                                                <a href="#">
-                                                    <p>Read More...</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <!-- end of single blog -->
-                                </div>
-                                <div class="col-lg-6">
-                                    <!-- single blog -->
-                                    <article class="blog-card">
-                                        <div class="blog-img-container">
-                                            <a href="#"><img src="{% static 'img/blog3.jpg' %}" class="blog-img" alt="" /></a>
-                                            <p class="blog-date">august 26th, 2020</p>
-                                        </div>
-                                        <!-- blog info -->
-                                        <div class="blog-info">
-                                            <div class="blog-title">
-                                                <a href="#">
-                                                    <h4>Tibet Adventure</h4>
-                                                </a>
-                                                <a href="#">
-                                                    <p>Journal</p>
-                                                </a>
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                                vitae tempore voluptatum maxime reprehenderit eum quod
-                                                exercitationem fugit, qui corporis.
-                                            </p>
-                                            <!-- blog footer -->
-                                            <div class="blog-footer">
-                                                <a href="">
-                                                    <p>
-                                                        <span><i class="fas fa-user"></i></span> Darisset
-                                                    </p>
-                                                </a>
-                                                <a href="#">
-                                                    <p>Read More...</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <!-- end of single blog -->
-                                </div>
+                            </div>
+                            {%empty%}
+                            <p> No blogs available </p>
+                            {%endfor%}
 
                             </div>
                         </div>
-                        <!-- end of blogs center -->
-                        <div class="blog-btn mt-5">
-                            <a href="#" class="btn">all blogs</a>
-                        </div>
+                       <nav aria-label="...">
+                            <ul class="pagination">
+                            {% if page_obj.has_previous%}
+                                 <li class="page-item">
+                                     <a class="page-link" href="?page={{page_obj.previous_page_number}}" tabindex="-1" aria-disabled="true">Previous</a>
+                                 </li>
+                            {%else%}
+                                <li class="page-item disabled">
+                                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                 </li>
+                            {%endif%}
+                            {% for page in page_obj.paginator.page_range %}
+                                <li class="page-item {% if page == page_obj.number %}
+                                    active {% endif %}" aria-current="page">
+                                    <a class="page-link" href="?page={{page}}">{{page}}</a>
+                                </li>
+                            {% endfor %}
+                            {% if page_obj.has_next%}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
+                                </li>
+                            {%else%}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+                                </li>
+                            {%endif%}
+                            </ul>
+                        </nav>
                     </section>
                     <!-- end of featured blogs -->
 
@@ -184,6 +99,7 @@
                         <!-- featured-center -->
                         <div class="section-center featured-center ">
                             <div class="row justify-content-start">
+                            {%for posts in recent_posts%}
                                 <div class="col-lg-6">
                                     <!-- single blog -->
                                     <article class="blog-card">
@@ -191,22 +107,20 @@
                                         <div class="blog-info">
                                             <div class="blog-title">
                                                 <a href="#">
-                                                    <h4>Tibet Lorem ?</h4>
+                                                    <h4>{{posts.title}}</h4>
                                                 </a>
                                                 <a href="#">
-                                                    <p>Education</p>
+                                                    <p>{{posts.categories.first.slug | capfirst}}</p>
                                                 </a>
                                             </div>
                                             <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                                vitae tempore voluptatum maxime reprehenderit eum quod
-                                                exercitationem fugit, qui corporis.
+                                                {{posts.content | truncatechars:200}}
                                             </p>
                                             <!-- blog footer -->
                                             <div class="blog-footer">
                                                 <a href="">
                                                     <p>
-                                                        <span><i class="fas fa-user"></i></span> Darisset
+                                                        <span><i class="fas fa-user"></i></span> {{posts.author.username}}
                                                     </p>
                                                 </a>
                                                 <a href="#">
@@ -217,105 +131,7 @@
                                     </article>
                                     <!-- end of single blog -->
                                 </div>
-                                <div class="col-lg-6">
-                                    <!-- single blog -->
-                                    <article class="blog-card">
-                                        <!-- blog info -->
-                                        <div class="blog-info">
-                                            <div class="blog-title">
-                                                <a href="#">
-                                                    <h4>Tibet Adventure</h4>
-                                                </a>
-                                                <a href="#">
-                                                    <p>Life Style</p>
-                                                </a>
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                                vitae tempore voluptatum maxime reprehenderit eum quod
-                                                exercitationem fugit, qui corporis.
-                                            </p>
-                                            <!-- blog footer -->
-                                            <div class="blog-footer">
-                                                <a href="">
-                                                    <p>
-                                                        <span><i class="fas fa-user"></i></span> Darisset
-                                                    </p>
-                                                </a>
-                                                <a href="#">
-                                                    <p>Read More...</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <!-- end of single blog -->
-                                </div>
-                                <div class="col-lg-6">
-                                    <!-- single blog -->
-                                    <article class="blog-card">
-                                        <!-- blog info -->
-                                        <div class="blog-info">
-                                            <div class="blog-title">
-                                                <a href="#">
-                                                    <h4>Tibet Adventure</h4>
-                                                </a>
-                                                <a href="#">
-                                                    <p>Journal</p>
-                                                </a>
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                                vitae tempore voluptatum maxime reprehenderit eum quod
-                                                exercitationem fugit, qui corporis.
-                                            </p>
-                                            <!-- blog footer -->
-                                            <div class="blog-footer">
-                                                <a href="">
-                                                    <p>
-                                                        <span><i class="fas fa-user"></i></span> Darisset
-                                                    </p>
-                                                </a>
-                                                <a href="#">
-                                                    <p>Read More...</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <!-- end of single blog -->
-                                </div>
-                                <div class="col-lg-6">
-                                    <!-- single blog -->
-                                    <article class="blog-card">
-                                        <!-- blog info -->
-                                        <div class="blog-info">
-                                            <div class="blog-title">
-                                                <a href="#">
-                                                    <h4>Tibet Adventure</h4>
-                                                </a>
-                                                <a href="#">
-                                                    <p>Journal</p>
-                                                </a>
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                                                vitae tempore voluptatum maxime reprehenderit eum quod
-                                                exercitationem fugit, qui corporis.
-                                            </p>
-                                            <!-- blog footer -->
-                                            <div class="blog-footer">
-                                                <a href="">
-                                                    <p>
-                                                        <span><i class="fas fa-user"></i></span> Darisset
-                                                    </p>
-                                                </a>
-                                                <a href="#">
-                                                    <p>Read More...</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <!-- end of single blog -->
-                                </div>
+                            {%endfor%}
 
                             </div>
                         </div>
@@ -326,32 +142,10 @@
 
                     <div class="sidebar-left">
                         <form class="d-flex">
-                            <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control mr-2" name = "search" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>
-                    <!-- single card -->
-                    <article class="sidebar-left">
-                        <!-- img container -->
-                        <div class="service-img-container">
-                            <!-- img -->
-                            <img src="{% static 'img/profil.png' %}" class="service-img" alt="single service" />
-                            <!-- service icon -->
-                            <span class="service-icon">
-                                <i class="fas fa-user fa-fw"></i>
-                            </span>
-                        </div>
-                        <!-- service info -->
-                        <div class="service-info">
-                            <h4>custom recipes</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-                                labore sed deserunt, blanditiis error doloremque.
-                            </p>
-                            <a href="products.html" class="btn service-btn">read more</a>
-                        </div>
-                    </article>
-                    <!--end of  single card -->
 
                     <div class="sidebar-left">
                         <h4 class="text-center">Follow Us</h4>
