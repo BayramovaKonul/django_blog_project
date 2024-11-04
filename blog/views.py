@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import ArticleModel
+from .models import ArticleModel, CategoryModel
 from django.core.paginator import Paginator
-from django.db.models import Q
+from django.db.models import Q, Count
 # Create your views here.
 
 def my_blogs(request):
@@ -24,6 +24,7 @@ def blogs (request):
     page = request.GET.get('page')  # GET - method returns dictionary from URL, get - dictionary method
     search = request.GET.get('search')
     blogs = ArticleModel.objects.all()
+    categories = CategoryModel.objects.annotate(article_count=Count('articles')).values('slug', 'article_count')
     recent_posts = blogs.order_by('-created_at')[:4]
     if search:
         blogs = blogs.filter(Q(title__icontains=search) |
@@ -31,7 +32,8 @@ def blogs (request):
     paginator = Paginator(blogs, 2)
     return render(request, 'blog.html', 
                   context={"page_obj" : paginator.get_page(page),
-                           "recent_posts": recent_posts
+                           "recent_posts": recent_posts,
+                           "categories" : categories
                            })
     
     

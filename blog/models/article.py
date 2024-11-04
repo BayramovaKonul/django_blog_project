@@ -15,7 +15,7 @@ class ArticleModel(CreationDateAbstractModel):
     content = models.TextField()
     published_at = models.DateTimeField(null=True, blank=True)
     picture = models.ImageField(upload_to='article_images')
-    categories = models.ManyToManyField(CategoryModel)
+    categories = models.ManyToManyField(CategoryModel, related_name="articles")
 
     class Meta:
         db_table = 'article'
