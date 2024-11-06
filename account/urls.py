@@ -9,4 +9,3 @@ urlpatterns = [
     path('login', views.login, name = 'login'),
     path('register', views.register, name = 'register'),
 ]
-# I wrote id inside <> to take id as a variable, not a part of URL.

@@ -14,18 +14,7 @@
                 <li><a href="{% url 'home' %}">home</a></li>
                 <li><a href="{% url 'about' %}">about</a></li>
                 <li><a href="{% url 'contact' %}">contact</a></li>
-                <div class="dropdown">
-                    <a class=" dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-expanded="false">
-                        Blog
-                    </a>
-
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="{%url 'blogs' %}">Blog</a></li>
-                        <li><a class="dropdown-item" href="{%url 'category' %}">Category</a></li>
-                        <li><a class="dropdown-item" href="detail.html">Detail</a></li>
-                    </ul>
-                </div>
+                <li><a href="{% url 'blogs' %}">blog</a></li>
                 <div class="dropdown">
                     <a class=" dropdown-toggle" href="#" role="button" id="UserDropdown" data-toggle="dropdown"
                         aria-expanded="false">

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import ArticleModel, CategoryModel
 from django.core.paginator import Paginator
@@ -24,7 +24,7 @@ def blogs (request):
     page = request.GET.get('page')  # GET - method returns dictionary from URL, get - dictionary method
     search = request.GET.get('search')
     blogs = ArticleModel.objects.all()
-    categories = CategoryModel.objects.annotate(article_count=Count('articles')).values('slug', 'article_count')
+    categories = CategoryModel.objects.annotate(article_count=Count('articles')).order_by("-article_count").values('name', 'article_count', 'slug')
     recent_posts = blogs.order_by('-created_at')[:4]
     if search:
         blogs = blogs.filter(Q(title__icontains=search) |
@@ -39,8 +39,13 @@ def blogs (request):
     
                  
 
-def category (request):
-    return render(request, 'category.html')
+def category_blog (request, category_slug):
+    categories = get_object_or_404(CategoryModel, slug = category_slug)  # check the table to find asked category_slug
+    category_blogs = categories.articles.all() # get all articles from table based on the category using related name
+    return render(request, 'category.html', context={
+        'category_blogs' : category_blogs,
+        'category_name' : categories.name
+    })
 
 def detail (request,id):
     return render(request, 'detail.html')
