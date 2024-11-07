@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import ArticleModel, CategoryModel
+from .models import ArticleModel, CategoryModel, CommentModel
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
 # Create your views here.
@@ -40,12 +40,34 @@ def blogs (request):
                  
 
 def category_blog (request, category_slug):
-    categories = get_object_or_404(CategoryModel, slug = category_slug)  # check the table to find asked category_slug
-    category_blogs = categories.articles.all() # get all articles from table based on the category using related name
+    categories = CategoryModel.objects.annotate(article_count=Count('articles')).order_by("-article_count").values('name', 'article_count', 'slug')
+    slug_categories = get_object_or_404(CategoryModel, slug = category_slug)  # check the table to find asked category_slug
+    category_blogs = slug_categories.articles.all() # get all articles from table based on the category using related name
+    blogs = ArticleModel.objects.all()
+    recent_posts = blogs.order_by('-created_at')[:4]
+    page = request.GET.get('page')
+    paginator = Paginator(category_blogs, 2) 
+    search = request.GET.get('search')
+    if search:
+        category_blogs = category_blogs.filter(Q(title__icontains=search) |
+                     Q(content__icontains=search))
     return render(request, 'category.html', context={
-        'category_blogs' : category_blogs,
-        'category_name' : categories.name
+        'page_obj' : paginator.get_page(page),
+        'category_name' : slug_categories.name,
+        'recent_posts' : recent_posts,
+        'categories' : categories
     })
 
-def detail (request,id):
-    return render(request, 'detail.html')
+
+def detail (request,blog_id):
+    details = ArticleModel.objects.get(id = blog_id)
+    comments = CommentModel.objects.filter(article_id = blog_id)
+    blogs = ArticleModel.objects.all()
+    recent_posts = blogs.order_by('-created_at')[:4]
+    categories = CategoryModel.objects.annotate(article_count=Count('articles')).order_by("-article_count").values('name', 'article_count', 'slug')
+    return render(request, 'detail.html', context={
+        'details' : details,
+        'comments' : comments,
+        'recent_posts' : recent_posts,
+        'categories' : categories
+    })
