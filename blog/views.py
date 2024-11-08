@@ -41,8 +41,8 @@ def blogs (request):
 
 def category_blog (request, category_slug):
     categories = CategoryModel.objects.annotate(article_count=Count('articles')).order_by("-article_count").values('name', 'article_count', 'slug')
-    slug_categories = get_object_or_404(CategoryModel, slug = category_slug)  # check the table to find asked category_slug
-    category_blogs = slug_categories.articles.all() # get all articles from table based on the category using related name
+    category_obj = get_object_or_404(CategoryModel, slug = category_slug)  # check the table to find asked category_slug
+    category_blogs = category_obj.articles.all() # get all articles from table based on the category using related name
     blogs = ArticleModel.objects.all()
     recent_posts = blogs.order_by('-created_at')[:4]
     page = request.GET.get('page')
@@ -53,19 +53,19 @@ def category_blog (request, category_slug):
                      Q(content__icontains=search))
     return render(request, 'category.html', context={
         'page_obj' : paginator.get_page(page),
-        'category_name' : slug_categories.name,
+        'category_name' : category_obj.name,
         'recent_posts' : recent_posts,
         'categories' : categories
     })
 
 
-def detail (request,blog_id):
-    details = ArticleModel.objects.get(id = blog_id)
-    comments = CommentModel.objects.filter(article_id = blog_id)
+def detail_blog (request,blog_slug):
+    details = get_object_or_404(ArticleModel, slug = blog_slug)
+    comments = CommentModel.objects.filter(article = details)
     blogs = ArticleModel.objects.all()
     recent_posts = blogs.order_by('-created_at')[:4]
     categories = CategoryModel.objects.annotate(article_count=Count('articles')).order_by("-article_count").values('name', 'article_count', 'slug')
-    return render(request, 'detail.html', context={
+    return render(request, 'blog_detail.html', context={
         'details' : details,
         'comments' : comments,
         'recent_posts' : recent_posts,
