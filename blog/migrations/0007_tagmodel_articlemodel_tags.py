@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0006_alter_articlemodel_categories'),
+        ('blog', '0005_alter_contactusmodel_resolved_at'),
     ]
 
     operations = [

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import CategoryModel, ArticleModel, CommentModel, ContactUsModel
+from .models import CategoryModel, ArticleModel, CommentModel, ContactUsModel, TagModel
 
 admin.site.register(CategoryModel)
 @admin.register(ArticleModel)
@@ -27,3 +27,4 @@ class CommentUsAdmin(admin.ModelAdmin):
     search_fields = ['subject'] 
     list_filter = ['created_at']
 
+admin.site.register(TagModel)
