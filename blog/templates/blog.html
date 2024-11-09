@@ -23,17 +23,17 @@
                                     <!-- single blog -->
                                     <article class="blog-card">
                                         <div class="blog-img-container">
-                                            <a href="#"><img src="{{blog.picture.url}}" class="blog-img" alt="" /></a>
+                                            <a href="{%url 'blog/details' blog_slug=blog.slug%}"><img src="{{blog.picture.url}}" class="blog-img" alt="" /></a>
                                             <p class="blog-date">{{blog.created_at | date:"F jS, Y"}}</p>
                                         </div>
                                         <!-- blog info -->
                                         <div class="blog-info">
                                             <div class="blog-title">
-                                                <a href="#">
+                                                <a href="{%url 'blog/details' blog_slug=blog.slug%}">
                                                     <h4>{{blog.title}}</h4>
                                                 </a>
-                                                <a href="#">
-                                                    <p>blog.categories.first.name</p>
+                                                <a href="{%url 'blog/details' blog_slug=blog.slug%}">
+                                                    <p>{{blog.categories.first.name}}</p>
                                                 </a>
                                             </div>
                                             <p>
@@ -46,7 +46,7 @@
                                                         <span><i class="fas fa-user"></i></span> {{blog.author.username}}
                                                     </p>
                                                 </a>
-                                                <a href="#">
+                                                <a href="{%url 'blog/details' blog_slug=blog.slug%}">
                                                     <p>Read More...</p>
                                                 </a>
                                             </div>
@@ -60,34 +60,9 @@
 
                             </div>
                         </div>
-                       <nav aria-label="...">
-                            <ul class="pagination">
-                            {% if page_obj.has_previous%}
-                                 <li class="page-item">
-                                     <a class="page-link" href="?page={{page_obj.previous_page_number}}" tabindex="-1" aria-disabled="true">Previous</a>
-                                 </li>
-                            {%else%}
-                                <li class="page-item disabled">
-                                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                 </li>
-                            {%endif%}
-                            {% for page in page_obj.paginator.page_range %}
-                                <li class="page-item {% if page == page_obj.number %}
-                                    active {% endif %}" aria-current="page">
-                                    <a class="page-link" href="?page={{page}}">{{page}}</a>
-                                </li>
-                            {% endfor %}
-                            {% if page_obj.has_next%}
-                                <li class="page-item">
-                                    <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
-                                </li>
-                            {%else%}
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
-                                </li>
-                            {%endif%}
-                            </ul>
-                        </nav>
+
+                        {%include "components/pagination.html"%}
+                       
                     </section>
                     <!-- end of featured blogs -->
 
@@ -106,10 +81,10 @@
                                         <!-- blog info -->
                                         <div class="blog-info">
                                             <div class="blog-title">
-                                                <a href="#">
+                                                <a href="{%url 'blog/details' blog_slug=posts.slug%}">
                                                     <h4>{{posts.title}}</h4>
                                                 </a>
-                                                <a href="#">
+                                                <a href="{%url 'blog/details' blog_slug=posts.slug%}">
                                                     <p>{{posts.categories.first.name}}</p>
                                                 </a>
                                             </div>
@@ -118,12 +93,12 @@
                                             </p>
                                             <!-- blog footer -->
                                             <div class="blog-footer">
-                                                <a href="">
+                                                <a href="{%url 'blog/details' blog_slug=posts.slug%}">
                                                     <p>
                                                         <span><i class="fas fa-user"></i></span> {{posts.author.username}}
                                                     </p>
                                                 </a>
-                                                <a href="#">
+                                                <a href="{%url 'blog/details' blog_slug=posts.slug%}">
                                                     <p>Read More...</p>
                                                 </a>
                                             </div>
@@ -189,38 +164,9 @@
                         </ul>
                     </div>
 
-                    <article class="sidebar-left">
-                        <h4 class="text-center">Popular Posts</h4>
-                        <div class="underline"></div>
-                        <div class="pl-3 pr-3">
-                        {%for popular in recent_posts%}
-                            <a href="#" aria-current="true">
-                                <div class="row mb-3">
-                                    <div class="col-4">
-                                        <img src="{{popular.picture.url}}" class="thumbnail" alt="...">
-                                    </div>
-                                    <div class="col-8 recent-post">
-                                        <h5>{{popular.title}}</h5>
-                                        <span>{{popular.created_at | date:"d M, Y"}}</span>
-                                    </div>
-                                </div>
-                            </a>
-                        {%endfor%}
-                        </div>
-                    </article>
-
-                    <article class="sidebar-left">
-                        <h4 class="text-center">Categories</h4>
-                        <div class="underline"></div>
-                        <ul class="list-group">
-                        {%for category in categories%}
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="{% url 'category' category_slug=category.slug %}">{{category.name}}</a>
-                                <span class="badge bg-primary rounded-pill">{{category.article_count}}</span>
-                            </li>
-                        {%endfor%}
-                        </ul>
-                    </article>
+                    {% include "components/popular_posts.html" %}
+                    
+                    {%include "components/categories.html" %}
                 </div>
 
             </div>
