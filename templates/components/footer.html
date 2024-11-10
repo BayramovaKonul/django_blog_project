@@ -39,4 +39,17 @@
         </ul>
 
         <p>&copy; <span id="date"></span> Darisset. All rights reserved.</p>
+        <form action="{% url 'set_language' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}" />
+            <label for="language-select" style="margin-right: 10px;">Select Language:</label>
+            <select name="language" id="language-select" style="padding: 5px;">
+                 <option value="en">🇬🇧 English</option>
+                 <option value="az">🇦🇿 Azerbaijani</option>
+                 <option value="es">🇪🇸 Spanish</option>
+                 <option value="ru">🇷🇺 Russian</option>
+            </select>
+            <input type="submit" value="Change Language" style="margin-left: 10px; padding: 5px 10px;">
+        </form>
+
     </footer>

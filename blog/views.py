@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import ArticleModel, CategoryModel, CommentModel
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
+from django.utils.translation import gettext as _
 # Create your views here.
 
 def my_blogs(request):
@@ -15,7 +16,10 @@ def home (request):
     return render(request, 'index.html')
 
 def about (request):
-    return render(request, 'about.html')
+    welcome_message = _("Welcome to my blog")
+    return render(request, 'about.html', context= {
+        'welcome_message' : welcome_message
+    })
 
 def contact (request):
     return render(request, 'contact.html')
