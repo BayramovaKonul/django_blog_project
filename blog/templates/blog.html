@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {%load static%}
+{% load i18n %}
 {% block title%} Blogs {% endblock %}
 
 {%block main%}
@@ -9,7 +10,7 @@
         <div class="container ">
             <div class="row">
                 <div class="section-title mt-5">
-                    <h2>All Post</h2>
+                    <h2> {% trans 'All Post' %}</h2>
                     <div class="underline"></div>
                 </div>
                 <div class="col-lg-8 mb-5">
@@ -92,7 +93,7 @@
                     <!-- end of featured blogs -->
 
                     <div class="section-title mt-5">
-                        <h2>Recent Posts</h2>
+                        <h2>{% trans 'Recent Posts' %}</h2>
                         <div class="underline"></div>
                     </div>
                     <section class="section" id="featured">
@@ -190,7 +191,7 @@
                     </div>
 
                     <article class="sidebar-left">
-                        <h4 class="text-center">Popular Posts</h4>
+                        <h4 class="text-center">{% trans 'Popular Posts' %}</h4>
                         <div class="underline"></div>
                         <div class="pl-3 pr-3">
                         {%for popular in recent_posts%}
@@ -210,7 +211,7 @@
                     </article>
 
                     <article class="sidebar-left">
-                        <h4 class="text-center">Categories</h4>
+                        <h4 class="text-center">{% trans 'Categories' %}</h4>
                         <div class="underline"></div>
                         <ul class="list-group">
                         {%for category in categories%}
