@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import ArticleModel, CategoryModel, CommentModel
+from .models import ArticleModel, CategoryModel, CommentModel, ContactUsModel
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.utils.translation import gettext as _
+from .forms.contact_us import ContactUsForm
 # Create your views here.
 
 def my_blogs(request):
@@ -21,8 +22,29 @@ def about (request):
         'welcome_message' : welcome_message
     })
 
-def contact (request):
-    return render(request, 'contact.html')
+def contact_us (request):
+    form = ContactUsForm()
+    if request.method == "POST":
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            subject = form.cleaned_data.get('subject')
+            message = form.cleaned_data.get('message')
+            form_obj = ContactUsModel()
+            form_obj.email = email
+            form_obj.subject = subject
+            form_obj.message = message
+            form_obj.stage = ContactUsModel.StageChoices.NEW
+            form_obj.save()
+            form = ContactUsForm()
+            return redirect('home')
+        
+        else:
+            print("NO")
+            
+    return render(request, 'contact.html', context = {
+        'form' : form
+    })
 
 def blogs (request):
     page = request.GET.get('page')  # GET - method returns dictionary from URL, get - dictionary method

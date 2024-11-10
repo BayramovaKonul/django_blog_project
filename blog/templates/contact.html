@@ -57,14 +57,32 @@
                     </article>
                     <!-- contact form -->
                     <article class="contact-form">
-                        <h3>contact us</h3>
-                        <form>
+                        <h3>Contact us</h3>
+                        <form action = "{% url 'contact' %}" method = "POST">
+                            {% csrf_token %}
                             <div class="form-group">
                                 <!-- inputs -->
-                                <input type="text" placeholder="name" class="form-control mb-3" name="name" />
-                                <input type="email" placeholder="email" class="form-control mb-3" name="email" />
-                                <textarea name="message" placeholder="message" class="form-control mb-3"
-                                    rows="5"></textarea>
+                                {{form.email}}
+                                {%if form.email.errors%}
+                                {%for error in form.email.errors%}
+                                <p style="color: red; font-weight: bold; text-align: left;">{{ error }}</p>
+                                {%endfor%}
+                                {%endif%}
+
+                                {{form.subject}}
+                                {%if form.subject.errors%}
+                                {%for error in form.subject.errors%}
+                                <p style="color: red; font-weight: bold; text-align: left;">{{ error }}</p>
+                                {%endfor%}
+                                {%endif%}
+
+                                {{form.message}}
+                                {%if form.message.errors%}
+                                {%for error in form.message.errors%}
+                                <p style="color: red; font-weight: bold; text-align: left;">{{ error }}</p>
+                                {%endfor%}
+                                {%endif%}
+
                             </div>
                             <!-- button -->
                             <button type="submit" class="contact-btn btn">submit here</button>
