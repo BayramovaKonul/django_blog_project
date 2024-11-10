@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n% }
+{% include "components/popular_posts.html" %}
 {%block title%} {{category_name}} {%endblock%}
 
 {%block main%}
@@ -17,21 +18,21 @@
                         <!-- featured-center -->
                         <div class="section-center featured-center ">
                             <div class="row justify-content-start">
-                                {%for c_blogs in category_blogs%}
+                                {%for c_blogs in page_obj%}
                                 <div class="col-lg-6">
                                     <!-- single blog -->
                                     <article class="blog-card">
                                         <div class="blog-img-container">
-                                            <a href="#"><img src="{{c_blogs.picture.url}}" class="blog-img" alt="" /></a>
+                                            <a href="{%url 'blog/details' blog_slug=c_blogs.slug%}"><img src="{{c_blogs.picture.url}}" class="blog-img" alt="" /></a>
                                             <p class="blog-date">{{c_blogs.created_at | date:"d M, Y"}}</p>
                                         </div>
                                         <!-- blog info -->
                                         <div class="blog-info">
                                             <div class="blog-title">
-                                                <a href="#">
+                                                <a href="{%url 'blog/details' blog_slug=c_blogs.slug%}">
                                                     <h4>{{c_blogs.title}}</h4>
                                                 </a>
-                                                <a href="#">
+                                                <a href="{%url 'blog/details' blog_slug=c_blogs.slug%}">
                                                     <p>{{c_blogs.categories.first.slug | capfirst}}</p>
                                                 </a>
                                             </div>
@@ -40,12 +41,12 @@
                                             </p>
                                             <!-- blog footer -->
                                             <div class="blog-footer">
-                                                <a href="">
+                                                <a href="{%url 'blog/details' blog_slug=c_blogs.slug%}">
                                                     <p>
                                                         <span><i class="fas fa-user"></i></span> {{c_blogs.author.username}}
                                                     </p>
                                                 </a>
-                                                <a href="#">
+                                                <a href="{%url 'blog/details' blog_slug=c_blogs.slug%}">
                                                     <p>Read More...</p>
                                                 </a>
                                             </div>
@@ -56,9 +57,14 @@
                                 {%endfor%}
                             </div>
                         </div>
+
+                        {%include "components/pagination.html"%}
+                        
                         <!-- end of blogs center -->
                         <div class="blog-btn mt-5">
+                          
                             <a href="{%url 'blogs'%}" class="btn">{% trans All blogs %} </a>
+
                         </div>
                     </section>
                     <!-- end of featured blogs -->
@@ -68,32 +74,11 @@
 
                     <div class="sidebar-left">
                         <form class="d-flex">
-                            <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit"> {% trans Search %}</button>
+                            <input class="form-control mr-2" name = "search" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>
-                    <!-- single card -->
-                    <article class="sidebar-left">
-                        <!-- img container -->
-                        <div class="service-img-container">
-                            <!-- img -->
-                            <img src="./img/profil.png" class="service-img" alt="single service" />
-                            <!-- service icon -->
-                            <span class="service-icon">
-                                <i class="fas fa-user fa-fw"></i>
-                            </span>
-                        </div>
-                        <!-- service info -->
-                        <div class="service-info">
-                            <h4>custom recipes</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-                                labore sed deserunt, blanditiis error doloremque.
-                            </p>
-                            <a href="products.html" class="btn service-btn">read more</a>
-                        </div>
-                    </article>
-                    <!--end of  single card -->
+
 
                     <div class="sidebar-left">
                         <h4 class="text-center">Follow Us</h4>
@@ -137,75 +122,9 @@
                         </ul>
                     </div>
 
-                    <article class="sidebar-left">
-                        <h4 class="text-center">Popular Posts</h4>
-                        <div class="underline"></div>
-                        <div class="pl-3 pr-3">
-                            <a href="#" aria-current="true">
-                                <div class="row mb-3">
-                                    <div class="col-4">
-                                        <img src="./img/blog1.jpg" class="thumbnail" alt="...">
-                                    </div>
-                                    <div class="col-8 recent-post">
-                                        <h5>Lorem ipsum dolor sit</h5>
-                                        <span>San, 12 Jan 2020</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" aria-current="true">
-                                <div class="row mb-4">
-                                    <div class="col-4">
-                                        <img src="./img/blog2.jpg" class="thumbnail" alt="...">
-                                    </div>
-                                    <div class="col-8 recent-post">
-                                        <h5>How it is django</h5>
-                                        <span>San, 22 Jan 2020</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" aria-current="true">
-                                <div class="row mb-4">
-                                    <div class="col-4">
-                                        <img src="./img/blog3.jpg" class="thumbnail" alt="...">
-                                    </div>
-                                    <div class="col-8 recent-post">
-                                        <h5>What happened..?</h5>
-                                        <span>San, 14 Jan 2020</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" aria-current="true">
-                                <div class="row mb-4">
-                                    <div class="col-4">
-                                        <img src="./img/blog1.jpg" class="thumbnail" alt="...">
-                                    </div>
-                                    <div class="col-8 recent-post">
-                                        <h5>First journal for me</h5>
-                                        <span>San, 10 Mei 2020</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </article>
+                    {% include "components/popular_posts.html" %}
 
-                    <article class="sidebar-left">
-                        <h4 class="text-center">Categories</h4>
-                        <div class="underline"></div>
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="#">Cras justo odio</a>
-                                <span class="badge bg-primary rounded-pill">14</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="#">Dapibus ac facilisis in</a>
-                                <span class="badge bg-primary rounded-pill">2</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="#">Morbi leo risus</a>
-                                <span class="badge bg-primary rounded-pill">1</span>
-                            </li>
-                        </ul>
-                    </article>
+                    {%include "components/categories.html" %}
                 </div>
 
             </div>

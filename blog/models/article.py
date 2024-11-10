@@ -3,6 +3,7 @@ from autoslug import AutoSlugField
 # from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from .category import CategoryModel
+from .tag import TagModel
 from .abstract_models import CreationDateAbstractModel
 
 User = get_user_model()
@@ -16,6 +17,7 @@ class ArticleModel(CreationDateAbstractModel):
     published_at = models.DateTimeField(null=True, blank=True)
     picture = models.ImageField(upload_to='article_images')
     categories = models.ManyToManyField(CategoryModel, related_name="articles")
+    tags = models.ManyToManyField(TagModel, related_name="articles")
 
     class Meta:
         db_table = 'article'
