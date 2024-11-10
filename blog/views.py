@@ -5,6 +5,8 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.utils.translation import gettext as _
 from .forms.contact_us import ContactUsForm
+from account.models import CustomUserModel
+
 # Create your views here.
 
 def my_blogs(request):
@@ -35,6 +37,8 @@ def contact_us (request):
             form_obj.subject = subject
             form_obj.message = message
             form_obj.stage = ContactUsModel.StageChoices.NEW
+            assigned_to = (CustomUserModel.objects.filter(is_staff=True).annotate(message_count=Count('assigned__id')).order_by('message_count').first()) # here 'assigned' is a related name
+            form_obj.assigned_to = assigned_to
             form_obj.save()
             form = ContactUsForm()
             return redirect('home')
