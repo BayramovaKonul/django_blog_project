@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n% }
+{% load i18n %}
 {% include "components/popular_posts.html" %}
 {%block title%} {{category_name}} {%endblock%}
 
@@ -63,7 +63,7 @@
                         <!-- end of blogs center -->
                         <div class="blog-btn mt-5">
                           
-                            <a href="{%url 'blogs'%}" class="btn">{% trans All blogs %} </a>
+                            <a href="{%url 'blogs'%}" class="btn">{% trans 'All blogs' %} </a>
 
                         </div>
                     </section>
