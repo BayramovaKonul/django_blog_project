@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-09 01:11+0400\n"
+"POT-Creation-Date: 2024-11-11 20:19+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,117 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: .\blog\templates\about.html:11
+
+#: .\blog\models\abstract_models.py:5 .\blog\models\comment.py:14
+#: .\blog\models\tag.py:8
+msgid "created_at"
+msgstr "yaradılıb"
+
+#: .\blog\models\abstract_models.py:6
+msgid "modified_at"
+msgstr "dəyişiklik edilib"
+
+#: .\blog\models\article.py:14
+msgid "author"
+msgstr "müəllif"
+
+#: .\blog\models\article.py:15
+msgid "title"
+msgstr "başlıq"
+
+#: .\blog\models\article.py:17 .\blog\models\comment.py:13
+msgid "content"
+msgstr "məzmun"
+
+#: .\blog\models\article.py:18
+msgid "published_at"
+msgstr "yayınlanıb"
+
+#: .\blog\models\article.py:19
+msgid "picture"
+msgstr "şəkil"
+
+#: .\blog\models\article.py:20
+#, fuzzy
+#| msgid "Categories"
+msgid "categories"
+msgstr "Kateqoriyalar"
+
+#: .\blog\models\article.py:21
+msgid "tags"
+msgstr "təglər"
+
+#: .\blog\models\article.py:25 .\blog\models\comment.py:12
+msgid "article"
+msgstr "məqalə"
+
+#: .\blog\models\article.py:26
+msgid "Articles"
+msgstr "Məqalələr"
+
+#: .\blog\models\category.py:6 .\blog\models\tag.py:6
+msgid "name"
+msgstr "ad"
+
+#: .\blog\models\category.py:11
+#, fuzzy
+#| msgid "Categories"
+msgid "Category"
+msgstr "Kateqoriyalar"
+
+#: .\blog\models\category.py:12 .\templates\components\categories.html:3
+msgid "Categories"
+msgstr "Kateqoriyalar"
+
+#: .\blog\models\comment.py:10
+msgid "user"
+msgstr "istifadəçi"
+
+#: .\blog\models\comment.py:18
+msgid "comment"
+msgstr "rəy"
+
+#: .\blog\models\comment.py:19
+msgid "Comments"
+msgstr "Rəylər"
+
+#: .\blog\models\contact_us.py:18 .\blog\templates\contact.html:38
+msgid "email"
+msgstr "E-poçt"
+
+#: .\blog\models\contact_us.py:19
+msgid "subject"
+msgstr "mövzu"
+
+#: .\blog\models\contact_us.py:20
+msgid "message"
+msgstr "mesaj"
+
+#: .\blog\models\contact_us.py:21
+msgid "stage"
+msgstr "mərhələ"
+
+#: .\blog\models\contact_us.py:23
+msgid "assigned_to"
+msgstr "təyin edilib"
+
+#: .\blog\models\contact_us.py:24
+msgid "resolved_at"
+msgstr "həll edilib"
+
+#: .\blog\models\contact_us.py:28 .\blog\models\contact_us.py:29
+msgid "ContactUs"
+msgstr "Bizimlə əlaqə"
+
+#: .\blog\models\tag.py:12
+msgid "Tag"
+msgstr "Təg"
+
+#: .\blog\models\tag.py:13
+msgid "Tags"
+msgstr "Təglər"
+
+#: .\blog\templates\about.html:10
 msgid "About me"
 msgstr "Haqqımda"
 
@@ -24,22 +134,144 @@ msgstr "Haqqımda"
 msgid "All Post"
 msgstr "Bütün postlar"
 
-#: .\blog\templates\blog.html:96
+#: .\blog\templates\blog.html:51 .\blog\templates\blog.html:103
+#: .\blog\templates\category.html:50
+msgid "Read More..."
+msgstr "Daha çox ..."
+
+#: .\blog\templates\blog.html:71
 msgid "Recent Posts"
 msgstr "Son postlar"
 
-#: .\blog\templates\blog.html:194
-msgid "Popular Posts"
-msgstr "Məşhur postlar"
+#: .\blog\templates\blog.html:122 .\blog\templates\category.html:78
+msgid "Search"
+msgstr "Axtarış"
 
-#: .\blog\templates\blog.html:214
-msgid "Categories"
-msgstr "Kateqoriyalar"
+#: .\blog\templates\blog.html:127 .\blog\templates\blog_detail.html:106
+#: .\blog\templates\category.html:84
+msgid "Follow Us"
+msgstr "Bizi izləyin"
 
-#: .\blog\views.py:19
+#: .\blog\templates\blog_detail.html:36
+#, fuzzy
+#| msgid "Comments"
+msgid "Get Comment!"
+msgstr "Bizə rəy yazın! "
+
+#: .\blog\templates\blog_detail.html:52
+#, fuzzy
+#| msgid "comment"
+msgid "Post comment"
+msgstr "Paylaş"
+
+#: .\blog\templates\category.html:66
+#, fuzzy
+#| msgid "All Post"
+msgid "All blogs"
+msgstr "Bütün postlar"
+
+#: .\blog\templates\contact.html:11
+#, fuzzy
+#| msgid "ContactUs"
+msgid "Contact me"
+msgstr "Bizimlə əlaqə"
+
+#: .\blog\templates\contact.html:24
+msgid "address"
+msgstr "Adres"
+
+#: .\blog\templates\contact.html:51
+msgid "telephone"
+msgstr "Əlaqə nömrəsi"
+
+#: .\blog\templates\contact.html:61
+#, fuzzy
+#| msgid "ContactUs"
+msgid "Contact us"
+msgstr "Bizimlə əlaqə"
+
+#: .\blog\templates\contact.html:89
+msgid "submit here"
+msgstr "Təsdiqləyin"
+
+#: .\blog\views.py:20
 msgid "Welcome to my blog"
 msgstr "Səhifəmə xoş gəldiniz"
 
 #: .\config\urls.py:25
 msgid "admin/"
 msgstr "esas_user"
+
+#: .\templates\components\footer.html:43
+msgid "All rights reserved"
+msgstr "Bütün haqqlar qorunur"
+
+#: .\templates\components\footer.html:47
+msgid "Select Language:"
+msgstr "Dili seç:"
+
+#: .\templates\components\header.html:15
+msgid "Home"
+msgstr "Əsas"
+
+#: .\templates\components\header.html:16
+#, fuzzy
+#| msgid "About me"
+msgid "About"
+msgstr "Haqqında"
+
+#: .\templates\components\header.html:17
+#, fuzzy
+#| msgid "ContactUs"
+msgid "Contact"
+msgstr "Bizimlə əlaqə"
+
+#: .\templates\components\header.html:18
+msgid "Blog"
+msgstr "Məqalələr"
+
+#: .\templates\components\header.html:22 .\templates\components\header.html:26
+#, fuzzy
+#| msgid "user"
+msgid "User"
+msgstr "İstifadəçilər"
+
+#: .\templates\components\header.html:27
+msgid "Login"
+msgstr "Daxil ol"
+
+#: .\templates\components\header.html:28
+msgid "Register"
+msgstr "Qeydiyyatdan keç"
+
+#: .\templates\components\newsletter.html:6
+msgid "Want latest post info and updates?"
+msgstr "Ən son yeniliklərdən xəbərdar olmaq istəyirsiniz?"
+
+#: .\templates\components\newsletter.html:7
+msgid "Sign up for newsletter and stay up to date"
+msgstr "Xəbər bülleteni üçün qeydiyyatdan keçin və yeniliklərdən xəbərdar olun"
+
+#: .\templates\components\newsletter.html:10
+#, fuzzy
+#| msgid "email"
+msgid "your email"
+msgstr "E-poçt"
+
+#: .\templates\components\newsletter.html:11
+msgid "Submit"
+msgstr "Təsdiqləyin"
+
+#: .\templates\components\pagination.html:7
+#: .\templates\components\pagination.html:11
+msgid "Previous"
+msgstr "Əvvəlki"
+
+#: .\templates\components\pagination.html:22
+#: .\templates\components\pagination.html:26
+msgid "Next"
+msgstr "Növbəti"
+
+#: .\templates\components\popular_posts.html:4
+msgid "Popular Posts"
+msgstr "Məşhur postlar"

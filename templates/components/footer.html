@@ -1,3 +1,5 @@
+{%load i18n%}
+    
     <!-- end of newsletter -->
     <footer class="footer">
         <ul class="social-icons mt-5">
@@ -38,11 +40,11 @@
             <!-- end of single item -->
         </ul>
 
-        <p>&copy; <span id="date"></span> Darisset. All rights reserved.</p>
+        <p>&copy; <span id="date"></span> {% trans 'All rights reserved' %}</p>
         <form action="{% url 'set_language' %}" method="post" style="display: inline;">
             {% csrf_token %}
             <input name="next" type="hidden" value="{{ redirect_to }}" />
-            <label for="language-select" style="margin-right: 10px;">Select Language:</label>
+            <label for="language-select" style="margin-right: 10px;">{% trans 'Select Language:' %}</label>
             <select name="language" id="language-select" style="padding: 5px;">
                  <option value="en">🇬🇧 English</option>
                  <option value="az">🇦🇿 Azerbaijani</option>

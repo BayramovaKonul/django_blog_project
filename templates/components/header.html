@@ -1,4 +1,5 @@
    {%load static%}
+   {%load i18n%}
     <!-- navbar -->
     <nav class="nav" id="nav">
         <div class="nav-center">
@@ -11,20 +12,20 @@
             </div>
             <!-- nav links -->
             <ul class="nav-links">
-                <li><a href="{% url 'home' %}">home</a></li>
-                <li><a href="{% url 'about' %}">about</a></li>
-                <li><a href="{% url 'contact' %}">contact</a></li>
-                <li><a href="{% url 'blogs' %}">blog</a></li>
+                <li><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+                <li><a href="{% url 'about' %}">{% trans 'About' %}</a></li>
+                <li><a href="{% url 'contact' %}">{% trans 'Contact' %}</a></li>
+                <li><a href="{% url 'blogs' %}">{% trans 'Blog' %}</a></li>
                 <div class="dropdown">
                     <a class=" dropdown-toggle" href="#" role="button" id="UserDropdown" data-toggle="dropdown"
                         aria-expanded="false">
-                        User
+                        {% trans 'User' %}
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="UserDropdown">
-                        <li><a class="dropdown-item" href="{%url 'user' %}">User</a></li>
-                        <li><a class="dropdown-item" href="{%url 'login' %}">login</a></li>
-                        <li><a class="dropdown-item" href="{% url 'register' %}">regster</a></li>
+                        <li><a class="dropdown-item" href="{%url 'user' %}">{% trans 'User' %}</a></li>
+                        <li><a class="dropdown-item" href="{%url 'login' %}">{% trans 'Login' %}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'register' %}">{% trans 'Register' %}</a></li>
                     </ul>
                 </div>
             </ul>

@@ -1,6 +1,7 @@
                 
+{%load i18n%}
                     <article class="sidebar-left">
-                        <h4 class="text-center">Popular Posts</h4>
+                        <h4 class="text-center">{% trans 'Popular Posts' %}</h4>
                         <div class="underline"></div>
                         <div class="pl-3 pr-3">
                         {%for popular in recent_posts%}

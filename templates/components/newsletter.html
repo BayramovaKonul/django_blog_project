@@ -1,13 +1,14 @@
         <!-- newsletter -->
+{%load i18n%}
     <section class="section newsletter" id="newsletter">
         <div class="container section-center newsletter-center">
             <div class="newsletter-title">
-                <h3>want latest post info and updates?</h3>
-                <p>Sign up for newsletter and stay up to date</p>
+                <h3>{% trans 'Want latest post info and updates?' %}</h3>
+                <p>{% trans 'Sign up for newsletter and stay up to date' %}</p>
             </div>
             <form class="newsletter-form">
-                <input type="email" class="form-control" placeholder="your email" />
-                <button type="submit" class="btn-submit">submit</button>
+                <input type="email" class="form-control" placeholder="{% trans 'your email' %}" />
+                <button type="submit" class="btn-submit">{% trans 'Submit' %}</button>
             </form>
         </div>
     </section>

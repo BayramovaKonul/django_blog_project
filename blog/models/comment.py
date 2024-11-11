@@ -1,21 +1,22 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from .article import ArticleModel
+from django.utils.translation import gettext as _
 
 User = get_user_model()
 
 class CommentModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             related_name="comments")
+                             related_name="comments", verbose_name=_("user"))
     article = models.ForeignKey(ArticleModel, on_delete=models.CASCADE,
-                                related_name="comments")
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+                                related_name="comments", verbose_name=_("article"))
+    content = models.TextField(verbose_name=_("content"))
+    created_at = models.DateTimeField(verbose_name=_("created_at"), auto_now_add=True)
 
     class Meta:
         db_table = 'comment'
-        verbose_name = 'comment'
-        verbose_name_plural = 'Comments'
+        verbose_name = _('comment')
+        verbose_name_plural = _('Comments')
 
 
     def __str__(self):
