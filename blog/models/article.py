@@ -6,6 +6,7 @@ from .category import CategoryModel
 from .tag import TagModel
 from .abstract_models import CreationDateAbstractModel
 from django.utils.translation import gettext as _
+from ckeditor.fields import RichTextField
 
 User = get_user_model()
 
@@ -14,7 +15,7 @@ class ArticleModel(CreationDateAbstractModel):
                                   related_name="articles", verbose_name=_("author"))
     title = models.CharField(verbose_name=_("title"), max_length=255)
     slug = AutoSlugField(populate_from="title", unique=True)
-    content = models.TextField(verbose_name=_("content"))
+    content = RichTextField(verbose_name=_("content"))
     published_at = models.DateTimeField(verbose_name=_("published_at"), null=True, blank=True)
     picture = models.ImageField(verbose_name=_("picture"), upload_to='article_images')
     categories = models.ManyToManyField(CategoryModel, related_name="articles", verbose_name=_("categories"))

@@ -5,7 +5,10 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.utils.translation import gettext as _
 from .forms.contact_us import ContactUsForm
+from .forms.create_article import CreateArticleForm
 from account.models import CustomUserModel
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
 
 # Create your views here.
 
@@ -25,20 +28,12 @@ def about (request):
     })
 
 def contact_us (request):
-    form = ContactUsForm()
+    form = ContactUsForm(request.POST or None, request.FILES or None)
     if request.method == "POST":
-        form = ContactUsForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data.get('email')
-            subject = form.cleaned_data.get('subject')
-            message = form.cleaned_data.get('message')
-            form_obj = ContactUsModel()
-            form_obj.email = email
-            form_obj.subject = subject
-            form_obj.message = message
-            form_obj.stage = ContactUsModel.StageChoices.NEW
-            assigned_to = (CustomUserModel.objects.filter(is_staff=True).annotate(message_count=Count('assigned__id')).order_by('message_count').first()) # here 'assigned' is a related name
-            form_obj.assigned_to = assigned_to
+            form_obj = form.save(commit=False)
+            form_obj.stage  = ContactUsModel.StageChoices.NEW
+            form_obj.assigned_to = (CustomUserModel.objects.filter(is_staff=True).annotate(message_count=Count('assigned__id')).order_by('message_count').first()) # here 'assigned' is a related name
             form_obj.save()
             return redirect('home')
 
@@ -77,6 +72,7 @@ def category_blog (request, category_slug):
     if search:
         category_blogs = category_blogs.filter(Q(title__icontains=search) |
                      Q(content__icontains=search))
+        
     return render(request, 'category.html', context={
         'page_obj' : paginator.get_page(page),
         'category_name' : category_obj.name,
@@ -97,3 +93,21 @@ def detail_blog (request,blog_slug):
         'recent_posts' : recent_posts,
         'categories' : categories
     })
+
+
+@login_required(login_url='login')
+def create_article(request):
+    form = CreateArticleForm(request.POST or None, request.FILES or None)
+    if request.method == "POST":
+        if form.is_valid():
+            article_obj = form.save(commit=False)
+            article_obj.author = request.user
+            with transaction.atomic():
+                article_obj.save()
+                form.save_m2m()  #to save the third table between articles and users (manytomany)
+            return redirect("home")
+
+    return render (request, 'create_article.html', context={
+        'form' : form
+    })
+

@@ -41,6 +41,11 @@ INSTALLED_APPS = [
     # my apps
     'blog.apps.BlogConfig',
     'account.apps.AccountConfig',
+
+    # third party apps
+    'ckeditor',
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -116,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'az'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Asia/Baku'
 
@@ -127,7 +132,7 @@ USE_TZ = True
 LANGUAGES = [ ('en', 'English'), ('az', 'Azerbaijan'), ('es', 'Español'), ('ru', 'Русский')]
 LOCALE_PATHS = [BASE_DIR / 'locale', ]
 
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 

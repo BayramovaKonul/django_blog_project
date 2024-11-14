@@ -12,4 +12,4 @@ class CategoryModel(models.Model):
         verbose_name_plural = _("Categories")
         
     def __str__(self):
-        return f"{self.name} --> {self.slug}"
+        return f"{self.name}"

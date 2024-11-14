@@ -8,6 +8,9 @@ django-autoslug = "*"
 django = "==5.1"
 psycopg2 = "*"
 pillow = "*"
+django-ckeditor = "*"
+django-crispy-forms = "*"
+crispy-bootstrap4 = "*"
 
 [dev-packages]
 

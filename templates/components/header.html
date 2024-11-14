@@ -26,6 +26,8 @@
                         <li><a class="dropdown-item" href="{%url 'user' %}">{% trans 'User' %}</a></li>
                         <li><a class="dropdown-item" href="{%url 'login' %}">{% trans 'Login' %}</a></li>
                         <li><a class="dropdown-item" href="{% url 'register' %}">{% trans 'Register' %}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'create-article' %}">{% trans 'Create Your Article' %}</a></li>
+                        {% comment %} <li><a class="dropdown-item" href="{% url 'my-articles' %}">{% trans 'My articles' %}</a></li> {% endcomment %}
                     </ul>
                 </div>
             </ul>
