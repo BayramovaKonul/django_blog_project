@@ -42,10 +42,11 @@ class CreateArticleForm (forms.ModelForm):
             'published_at' : forms.TextInput(
                             attrs = {
                                 "class": "form-control mb-3",
-                                "type": "date"
+                                "type": "datetime-local"
                                      }
             ),
         }
 
         
-       
+class EditArticleForm (CreateArticleForm):
+    ...

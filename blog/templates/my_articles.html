@@ -1,0 +1,33 @@
+{%extends "base.html" %}
+{%load static%}
+{%block title%} My articles {%endblock%}
+
+{%block main%}
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Titles</th>
+      <th scope="col">Modified at</th>
+      <th scope="col">What do you want to do?</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for article in all_articles %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td><a href="{% url 'blog/details' blog_slug=article.slug %}">{{ article.title }}</a></td>
+      <td>{{article.modified_at}}</td>
+      <td>
+      <a href="{% url 'edit-article' article_slug=article.slug%}" class="btn btn-outline-secondary btn-sm">Edit</a>
+      <a href="{%url 'delete-article' article_slug=article.slug%}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this article?');">Delete</a>
+      </td>
+    </tr>
+  {%endfor%}
+
+  </tbody>
+</table>
+
+{%endblock%}

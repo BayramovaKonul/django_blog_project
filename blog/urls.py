@@ -10,4 +10,7 @@ urlpatterns = [
     path('category/<slug:category_slug>', views.category_blog, name = 'category'),
     path('blogs/<slug:blog_slug>/', views.detail_blog, name = 'blog/details'),
     path('create-article', views.create_article, name = 'create-article'),
+    path('my-articles/<int:user_id>/', views.my_articles, name = 'my_articles'),
+    path('edit-article/<slug:article_slug>/', views.edit_article, name = 'edit-article'),
+    path('delete-article/<slug:article_slug>/', views.delete_article, name = 'delete-article'),
 ]
