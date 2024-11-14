@@ -40,12 +40,8 @@ def contact_us (request):
             assigned_to = (CustomUserModel.objects.filter(is_staff=True).annotate(message_count=Count('assigned__id')).order_by('message_count').first()) # here 'assigned' is a related name
             form_obj.assigned_to = assigned_to
             form_obj.save()
-            form = ContactUsForm()
             return redirect('home')
-        
-        else:
-            print("NO")
-            
+
     return render(request, 'contact.html', context = {
         'form' : form
     })
