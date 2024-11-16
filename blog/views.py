@@ -108,9 +108,12 @@ def create_article(request):
 
 @login_required(login_url='login')
 def my_articles (request, user_id):
+    page = request.GET.get('page')
     all_articles = ArticleModel.objects.filter(author_id = user_id)
+    paginator = Paginator(all_articles, 3) 
     return render (request, 'my_articles.html', context= {
-        'all_articles':all_articles
+        'all_articles':all_articles,
+        'page_obj' : paginator.get_page(page),
     })
 
 @login_required(login_url='login')

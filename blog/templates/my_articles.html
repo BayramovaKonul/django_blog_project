@@ -14,10 +14,11 @@
     </tr>
   </thead>
   <tbody>
+  
 
-  {% for article in all_articles %}
+  {% for article in page_obj%}
     <tr>
-      <th scope="row">{{ forloop.counter }}</th>
+      <th scope="row">{{ forloop.counter0|add:page_obj.start_index|default:0 }}</th>
       <td><a href="{% url 'blog/details' blog_slug=article.slug %}">{{ article.title }}</a></td>
       <td>{{article.modified_at}}</td>
       <td>
@@ -29,5 +30,7 @@
 
   </tbody>
 </table>
+
+{%include "components/pagination.html"%}
 
 {%endblock%}
