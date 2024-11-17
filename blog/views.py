@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.utils.translation import gettext as _
 from .forms.contact_us import ContactUsForm
+from .forms.post_comment import CommentArticleForm
 from .forms.create_article import CreateArticleForm, EditArticleForm
 from account.models import CustomUserModel
 from django.contrib.auth.decorators import login_required
@@ -78,16 +79,32 @@ def category_blog (request, category_slug):
 
 def detail_blog (request,blog_slug):
     details = get_object_or_404(ArticleModel, slug = blog_slug)
-    comments = CommentModel.objects.filter(article = details)
+    comments = CommentModel.objects.filter(article = details).order_by('-created_at')
     blogs = ArticleModel.objects.all()
     recent_posts = blogs.order_by('-created_at')[:4]
     categories = CategoryModel.objects.annotate(article_count=Count('articles')).order_by("-article_count").values('name', 'article_count', 'slug')
+    form = CommentArticleForm()
     return render(request, 'blog_detail.html', context={
         'details' : details,
         'comments' : comments,
         'recent_posts' : recent_posts,
-        'categories' : categories
+        'categories' : categories,
+        'form' : form
     })
+
+def post_comment(request, blog_slug):
+    details = get_object_or_404(ArticleModel, slug=blog_slug)
+    
+    if request.method == "POST":
+        form = CommentArticleForm(request.POST)
+        
+        if form.is_valid():
+            comment_obj = form.save(commit=False)
+            comment_obj.user = request.user
+            comment_obj.article = details
+            comment_obj.save()
+    
+    return redirect('blog/details', blog_slug=blog_slug)  # takes url name
 
 
 @login_required(login_url='login')
