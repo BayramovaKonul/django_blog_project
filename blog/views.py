@@ -6,6 +6,7 @@ from django.db.models import Q, Count
 from django.utils.translation import gettext as _
 from .forms.contact_us import ContactUsForm
 from .forms.create_article import CreateArticleForm, EditArticleForm
+from .forms.get_comment import CommentArticleForm
 from account.models import CustomUserModel
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -76,6 +77,19 @@ def category_blog (request, category_slug):
     })
 
 
+def post_comment(request, blog_slug):
+    form = CommentArticleForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            article = get_object_or_404(ArticleModel, slug=blog_slug)
+            comment_obj = form.save(commit=False)
+            comment_obj.article = article
+            comment_obj.save()
+            
+    return render (request, 'blog_detail.html', context={
+        'form' : form
+    }) 
+
 def detail_blog (request,blog_slug):
     details = get_object_or_404(ArticleModel, slug = blog_slug)
     comments = CommentModel.objects.filter(article = details)
@@ -87,7 +101,7 @@ def detail_blog (request,blog_slug):
         'comments' : comments,
         'recent_posts' : recent_posts,
         'categories' : categories
-    })
+    })     
 
 
 @login_required(login_url='login')

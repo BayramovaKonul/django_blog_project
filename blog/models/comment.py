@@ -6,12 +6,13 @@ from django.utils.translation import gettext as _
 User = get_user_model()
 
 class CommentModel(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             related_name="comments", verbose_name=_("user"))
+    full_name = models.CharField(max_length=100, verbose_name=("full_name"), null=False, blank=False)
     article = models.ForeignKey(ArticleModel, on_delete=models.CASCADE,
                                 related_name="comments", verbose_name=_("article"))
+    email = models.EmailField(verbose_name=_("email"), null = True, blank=True)
     content = models.TextField(verbose_name=_("content"))
     created_at = models.DateTimeField(verbose_name=_("created_at"), auto_now_add=True)
+    
 
     class Meta:
         db_table = 'comment'
@@ -20,4 +21,4 @@ class CommentModel(models.Model):
 
 
     def __str__(self):
-        return f"{self.article}, {self.user.username}"
+        return f"{self.article}, {self.full_name}"

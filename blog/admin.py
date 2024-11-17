@@ -14,8 +14,8 @@ class ArticleAdmin(admin.ModelAdmin):
 
 @admin.register(CommentModel)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['content', 'article', 'user', 'created_at'] # which fields should be shown
-    list_display_links = ['user', 'article'] # make each field a link
+    list_display = ['content', 'article', 'full_name', 'created_at'] # which fields should be shown
+    list_display_links = ['full_name', 'article'] # make each field a link
     search_fields = ['content'] 
     # i could not search for article and user, since i wrote user__user and article__article.
     list_filter = ['created_at']

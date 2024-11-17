@@ -13,4 +13,5 @@ urlpatterns = [
     path('my-articles', views.my_articles, name = 'my_articles'),
     path('edit-article/<slug:article_slug>/', views.edit_article, name = 'edit-article'),
     path('delete-article/<slug:article_slug>/', views.delete_article, name = 'delete-article'),
+    path('post-comment/<slug:blog_slug>/', views.post_comment, name = 'post-comment'),
 ]
