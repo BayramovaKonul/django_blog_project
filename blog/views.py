@@ -5,18 +5,13 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.utils.translation import gettext as _
 from .forms.contact_us import ContactUsForm
-from .forms.create_article import CreateArticleForm
+from .forms.create_article import CreateArticleForm, EditArticleForm
 from account.models import CustomUserModel
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 
 # Create your views here.
 
-def my_blogs(request):
-    return HttpResponse('<h1>Welcome to my blog</h1>')
-
-def my_blog_details(request):
-    return HttpResponse('<h1>All information about my blog</h1>')
 
 def home (request):
     return render(request, 'index.html')
@@ -111,3 +106,32 @@ def create_article(request):
         'form' : form
     })
 
+@login_required(login_url='login')
+def my_articles (request):
+    page = request.GET.get('page')
+    all_articles = ArticleModel.objects.filter(author_id = request.user)
+    paginator = Paginator(all_articles, 3) 
+    return render (request, 'my_articles.html', context= {
+        'all_articles':all_articles,
+        'page_obj' : paginator.get_page(page),
+    })
+
+@login_required(login_url='login')
+def edit_article(request, article_slug):
+    article = get_object_or_404(ArticleModel, slug = article_slug, author_id = request.user)
+    form = EditArticleForm(request.POST or None, request.FILES or None, instance=article)
+
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("my_articles", user_id=request.user.id)
+    
+    return render(request, 'edit_article.html', context={
+        'form' : form
+    })
+
+@login_required(login_url='login')
+def delete_article(request, article_slug):
+    article = get_object_or_404(ArticleModel, slug = article_slug, author_id = request.user)
+    article.delete()
+    return redirect("my_articles", user_id=request.user.id)
