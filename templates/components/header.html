@@ -28,7 +28,7 @@
                         <li><a class="dropdown-item" href="{% url 'register' %}">{% trans 'Register' %}</a></li>
                         <li><a class="dropdown-item" href="{% url 'create-article' %}">{% trans 'Create Your Article' %}</a></li>
                         {%if request.user.id%}
-                            <li><a class="dropdown-item" href="{% url 'my_articles' user_id=request.user.id %}">{% trans 'My articles' %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'my_articles'%}">{% trans 'My articles' %}</a></li>
                         {%endif%}                    
                     </ul>
                 </div>
