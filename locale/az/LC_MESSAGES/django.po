@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-11 20:19+0400\n"
+"POT-Creation-Date: 2024-11-18 20:09+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\account\views\login.py:20
+msgid "Username or Password is incorrect"
+msgstr "İstifadəçi adı və ya şifrə yanlışdır."
+
+#: .\account\views\login.py:23
+#, fuzzy
+#| msgid "Welcome to my blog"
+msgid "Welcome to the website"
+msgstr "Səhifəmə xoş gəldiniz"
 
 #: .\blog\models\abstract_models.py:5 .\blog\models\comment.py:14
 #: .\blog\models\tag.py:8
@@ -26,41 +36,41 @@ msgstr "yaradılıb"
 msgid "modified_at"
 msgstr "dəyişiklik edilib"
 
-#: .\blog\models\article.py:14
+#: .\blog\models\article.py:15
 msgid "author"
 msgstr "müəllif"
 
-#: .\blog\models\article.py:15
+#: .\blog\models\article.py:16
 msgid "title"
 msgstr "başlıq"
 
-#: .\blog\models\article.py:17 .\blog\models\comment.py:13
+#: .\blog\models\article.py:18 .\blog\models\comment.py:13
 msgid "content"
 msgstr "məzmun"
 
-#: .\blog\models\article.py:18
+#: .\blog\models\article.py:19
 msgid "published_at"
 msgstr "yayınlanıb"
 
-#: .\blog\models\article.py:19
+#: .\blog\models\article.py:20
 msgid "picture"
 msgstr "şəkil"
 
-#: .\blog\models\article.py:20
+#: .\blog\models\article.py:21
 #, fuzzy
 #| msgid "Categories"
 msgid "categories"
 msgstr "Kateqoriyalar"
 
-#: .\blog\models\article.py:21
+#: .\blog\models\article.py:22
 msgid "tags"
 msgstr "təglər"
 
-#: .\blog\models\article.py:25 .\blog\models\comment.py:12
+#: .\blog\models\article.py:26 .\blog\models\comment.py:12
 msgid "article"
 msgstr "məqalə"
 
-#: .\blog\models\article.py:26
+#: .\blog\models\article.py:27
 msgid "Articles"
 msgstr "Məqalələr"
 
@@ -147,18 +157,18 @@ msgstr "Son postlar"
 msgid "Search"
 msgstr "Axtarış"
 
-#: .\blog\templates\blog.html:127 .\blog\templates\blog_detail.html:106
+#: .\blog\templates\blog.html:127 .\blog\templates\blog_detail.html:105
 #: .\blog\templates\category.html:84
 msgid "Follow Us"
 msgstr "Bizi izləyin"
 
-#: .\blog\templates\blog_detail.html:36
+#: .\blog\templates\blog_detail.html:35
 #, fuzzy
 #| msgid "Comments"
 msgid "Get Comment!"
 msgstr "Bizə rəy yazın! "
 
-#: .\blog\templates\blog_detail.html:52
+#: .\blog\templates\blog_detail.html:51
 #, fuzzy
 #| msgid "comment"
 msgid "Post comment"
@@ -194,7 +204,7 @@ msgstr "Bizimlə əlaqə"
 msgid "submit here"
 msgstr "Təsdiqləyin"
 
-#: .\blog\views.py:20
+#: .\blog\views.py:22
 msgid "Welcome to my blog"
 msgstr "Səhifəmə xoş gəldiniz"
 
@@ -243,6 +253,16 @@ msgstr "Daxil ol"
 #: .\templates\components\header.html:28
 msgid "Register"
 msgstr "Qeydiyyatdan keç"
+
+#: .\templates\components\header.html:29
+msgid "Create Your Article"
+msgstr ""
+
+#: .\templates\components\header.html:31
+#, fuzzy
+#| msgid "article"
+msgid "My articles"
+msgstr "məqalə"
 
 #: .\templates\components\newsletter.html:6
 msgid "Want latest post info and updates?"

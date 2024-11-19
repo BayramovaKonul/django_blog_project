@@ -1,0 +1,32 @@
+{%extends "base.html" %}
+{%block title %} Register {%endblock%}
+
+{%block main%}
+
+    <div class="pb-5">
+        <div class="container d-flex justify-content-center">
+            <article class="contact-form">
+                <h3>Update Your Profile</h3>
+                <form method="POST">
+                {% if messages %}
+                    <div class="alert alert-success">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% csrf_token %}
+                    <div class="form-group">
+                        {{form.email}}
+                        {{form.first_name}}
+                        {{form.last_name}}
+                        {{form.avatar}}
+                    </div>
+                    <!-- button -->
+                    <button type="submit" class="contact-btn btn">Update</button>
+                </form>
+            </article>
+        </div>
+    </div>
+
+{%endblock%}

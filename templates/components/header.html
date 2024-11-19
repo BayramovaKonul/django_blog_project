@@ -23,13 +23,16 @@
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="UserDropdown">
-                        <li><a class="dropdown-item" href="{%url 'user' %}">{% trans 'User' %}</a></li>
-                        <li><a class="dropdown-item" href="{%url 'login' %}">{% trans 'Login' %}</a></li>
-                        <li><a class="dropdown-item" href="{% url 'register' %}">{% trans 'Register' %}</a></li>
+                    {%if request.user.is_authenticated%}
+                        <li><a class="dropdown-item" href="{% url 'my_articles'%}">{% trans 'My articles' %}</a></li>
                         <li><a class="dropdown-item" href="{% url 'create-article' %}">{% trans 'Create Your Article' %}</a></li>
-                        {%if request.user.id%}
-                            <li><a class="dropdown-item" href="{% url 'my_articles'%}">{% trans 'My articles' %}</a></li>
-                        {%endif%}                    
+                        <li><a class="dropdown-item" href="{% url 'change-password'%}">{% trans 'Change Password' %}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'update-profile' %}">{% trans 'Update your Profile' %}</a></li>
+                        <li><a class="dropdown-item" href="{%url 'logout' %}">{% trans 'Logout' %}</a></li>                              
+                    {%else%}
+                        <li><a class="dropdown-item" href="{%url 'login' %}">{% trans 'Login' %}</a></li>
+                        <li><a class="dropdown-item" href="{%url 'register'%}">{% trans 'Register' %}</a></li>
+                    {%endif%}              
                     </ul>
                 </div>
             </ul>
