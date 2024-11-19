@@ -11,12 +11,13 @@ from account.models import CustomUserModel
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.views.decorators.http import require_POST
-
+from django.contrib import messages
 
 # Create your views here.
 
 
 def home (request):
+    messages.success(request, "Welcome to the website")
     return render(request, 'index.html')
 
 def about (request):
