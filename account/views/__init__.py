@@ -1,4 +1,4 @@
-from .login import user_login
+from .login import LoginView
 from .logout import user_logout
 from .register import register
 from .change_password import change_password

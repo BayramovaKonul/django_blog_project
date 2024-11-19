@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import ArticleModel, CategoryModel, CommentModel, ContactUsModel
@@ -12,6 +13,9 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.views.decorators.http import require_POST
 from django.contrib import messages
+from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView, ListView
 
 # Create your views here.
 
@@ -20,11 +24,14 @@ def home (request):
     messages.success(request, "Welcome to the website")
     return render(request, 'index.html')
 
-def about (request):
-    welcome_message = _("Welcome to my blog")
-    return render(request, 'about.html', context= {
-        'welcome_message' : welcome_message
-    })
+# def about (request):
+#     welcome_message = _("Welcome to my blog")
+#     return render(request, 'about.html', context= {
+#         'welcome_message' : welcome_message
+#     })
+
+class AboutView(TemplateView):
+    template_name = 'about.html'
 
 def contact_us (request):
     form = ContactUsForm(request.POST or None, request.FILES or None)
@@ -40,23 +47,45 @@ def contact_us (request):
         'form' : form
     })
 
-def blogs (request):
-    page = request.GET.get('page')  # GET - method returns dictionary from URL, get - dictionary method
-    search = request.GET.get('search')
-    blogs = ArticleModel.objects.all()
-    categories = CategoryModel.objects.annotate(article_count=Count('articles')).order_by("-article_count").values('name', 'article_count', 'slug')
-    recent_posts = blogs.order_by('-created_at')[:4]
-    if search:
-        blogs = blogs.filter(Q(title__icontains=search) |
+# def blogs (request):
+#     page = request.GET.get('page')  # GET - method returns dictionary from URL, get - dictionary method
+#     search = request.GET.get('search')
+#     blogs = ArticleModel.objects.all()
+#     categories = CategoryModel.objects.annotate(article_count=Count('articles')).order_by("-article_count").values('name', 'article_count', 'slug')
+#     recent_posts = blogs.order_by('-created_at')[:4]
+#     if search:
+#         blogs = blogs.filter(Q(title__icontains=search) |
+#                      Q(content__icontains=search))
+#     paginator = Paginator(blogs, 2)
+#     return render(request, 'blog.html', 
+#                   context={"page_obj" : paginator.get_page(page),
+#                            "recent_posts": recent_posts,
+#                            "categories" : categories
+#                            })
+
+
+class AllArticlesView(ListView):
+    model = ArticleModel
+    template_name = 'blog.html'
+    context_object_name = 'articles'
+    paginate_by = 2
+    page_kwarg = 'page'
+
+    def get_queryset(self):
+        queryset = super().get_queryset() 
+        search = self.request.GET.get('search')
+        if search:
+            queryset = queryset.filter(Q(title__icontains=search) |
                      Q(content__icontains=search))
-    paginator = Paginator(blogs, 2)
-    return render(request, 'blog.html', 
-                  context={"page_obj" : paginator.get_page(page),
-                           "recent_posts": recent_posts,
-                           "categories" : categories
-                           })
+        return queryset
     
-    
+    def get_context_data(self, **kwargs):
+        queryset = self.get_queryset()
+        context = super().get_context_data(**kwargs)   #take context_object_name
+        context['categories'] = CategoryModel.objects.annotate(article_count=Count('articles')).order_by("-article_count").values('name', 'article_count', 'slug')
+        context['recent_posts'] = queryset.order_by('-created_at')[:4]
+
+        return context
                  
 
 def category_blog (request, category_slug):
@@ -98,9 +127,7 @@ def detail_blog (request,blog_slug):
 @require_POST
 def post_comment(request, blog_slug):
     details = get_object_or_404(ArticleModel, slug=blog_slug)
-
-    form = CommentArticleForm(request.POST)
-        
+    form = CommentArticleForm(request.POST)     
     if form.is_valid():
         comment_obj = form.save(commit=False)
         comment_obj.user = request.user
@@ -110,10 +137,34 @@ def post_comment(request, blog_slug):
     return redirect('blog/details', blog_slug=blog_slug)  # takes url name
 
 
-@login_required(login_url='login')
-def create_article(request):
-    form = CreateArticleForm(request.POST or None, request.FILES or None)
-    if request.method == "POST":
+# @login_required(login_url='login')
+# def create_article(request):
+#     form = CreateArticleForm(request.POST or None, request.FILES or None)
+#     if request.method == "POST":
+#         if form.is_valid():
+#             article_obj = form.save(commit=False)
+#             article_obj.author = request.user
+#             with transaction.atomic():
+#                 article_obj.save()
+#                 form.save_m2m()  #to save the third table between articles and users (manytomany)
+#             return redirect("home")
+
+#     return render (request, 'create_article.html', context={
+#         'form' : form
+#     })
+
+class ArticlesView(LoginRequiredMixin, View):
+    http_method_names = ['get', 'post']
+    form_class = CreateArticleForm
+
+    def get(self, request):
+        form = self.form_class()
+        return render (request, 'create_article.html', context={
+        'form' : form
+        })
+    # @method_decorator(login_required) - method based login_required
+    def post(self, request):
+        form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             article_obj = form.save(commit=False)
             article_obj.author = request.user
@@ -122,9 +173,6 @@ def create_article(request):
                 form.save_m2m()  #to save the third table between articles and users (manytomany)
             return redirect("home")
 
-    return render (request, 'create_article.html', context={
-        'form' : form
-    })
 
 @login_required(login_url='login')
 def my_articles (request):
@@ -136,22 +184,47 @@ def my_articles (request):
         'page_obj' : paginator.get_page(page),
     })
 
-@login_required(login_url='login')
-def edit_article(request, article_slug):
-    article = get_object_or_404(ArticleModel, slug = article_slug, author_id = request.user)
-    form = EditArticleForm(request.POST or None, request.FILES or None, instance=article)
+# @login_required(login_url='login')
+# def edit_article(request, article_slug):
+#     article = get_object_or_404(ArticleModel, slug = article_slug, author_id = request.user)
+#     form = EditArticleForm(request.POST or None, request.FILES or None, instance=article)
 
-    if request.method == "POST":
-        if form.is_valid():
-            form.save()
-            return redirect("my_articles", user_id=request.user.id)
+#     if request.method == "POST":
+#         if form.is_valid():
+#             form.save()
+#             return redirect("my_articles", user_id=request.user.id)
     
-    return render(request, 'edit_article.html', context={
+#     return render(request, 'edit_article.html', context={
+#         'form' : form
+#     })
+
+class EditArticle(LoginRequiredMixin, View):
+    http_method_names = ['get', 'post']
+    form_class=EditArticleForm
+
+    def get_article(self):  
+        article_slug = self.kwargs.get('article_slug')  #article is common for both get and post request
+        article = get_object_or_404(ArticleModel, slug = article_slug, author_id = self.request.user)
+        return article
+
+    def get(self, request, article_slug):
+        article = self.get_article()
+        form = self.form_class(instance=article)
+        return render(request, 'edit_article.html', context={
         'form' : form
     })
+
+    def post(self, request, article_slug):
+        article = self.get_article()
+        form = self.form_class(request.POST, request.FILES, instance=article)
+        if form.is_valid():
+            form.save()
+            return redirect("my_articles")
+
+
 
 @login_required(login_url='login')
 def delete_article(request, article_slug):
     article = get_object_or_404(ArticleModel, slug = article_slug, author_id = request.user)
     article.delete()
-    return redirect("my_articles", user_id=request.user.id)
+    return redirect("my_articles")

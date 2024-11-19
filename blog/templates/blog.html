@@ -38,7 +38,7 @@
                                                 </a>
                                             </div>
                                             <p>
-                                                {{blog.content | truncatechars:200}}
+                                                {{blog.content|safe| truncatechars_html:200}}
                                             </p>
                                             <!-- blog footer -->
                                             <div class="blog-footer">
@@ -90,7 +90,7 @@
                                                 </a>
                                             </div>
                                             <p>
-                                                {{posts.content | truncatechars:200}}
+                                                {{posts.content|safe| truncatechars_html:200}}
                                             </p>
                                             <!-- blog footer -->
                                             <div class="blog-footer">
