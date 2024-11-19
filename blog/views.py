@@ -10,6 +10,8 @@ from .forms.create_article import CreateArticleForm, EditArticleForm
 from account.models import CustomUserModel
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.views.decorators.http import require_POST
+
 
 # Create your views here.
 
@@ -92,17 +94,17 @@ def detail_blog (request,blog_slug):
         'form' : form
     })
 
+@require_POST
 def post_comment(request, blog_slug):
     details = get_object_or_404(ArticleModel, slug=blog_slug)
-    
-    if request.method == "POST":
-        form = CommentArticleForm(request.POST)
+
+    form = CommentArticleForm(request.POST)
         
-        if form.is_valid():
-            comment_obj = form.save(commit=False)
-            comment_obj.user = request.user
-            comment_obj.article = details
-            comment_obj.save()
+    if form.is_valid():
+        comment_obj = form.save(commit=False)
+        comment_obj.user = request.user
+        comment_obj.article = details
+        comment_obj.save()
     
     return redirect('blog/details', blog_slug=blog_slug)  # takes url name
 
