@@ -16,7 +16,8 @@ from django.contrib import messages
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView
-
+from datetime import datetime
+from django.utils.timezone import now
 # Create your views here.
 
 
@@ -70,6 +71,7 @@ class AllArticlesView(ListView):
     context_object_name = 'articles'
     paginate_by = 2
     page_kwarg = 'page'
+    queryset = ArticleModel.objects.filter(published_at__lte=now())
 
     def get_queryset(self):
         queryset = super().get_queryset() 
@@ -177,11 +179,17 @@ class ArticlesView(LoginRequiredMixin, View):
 @login_required(login_url='login')
 def my_articles (request):
     page = request.GET.get('page')
-    all_articles = ArticleModel.objects.filter(author_id = request.user)
-    paginator = Paginator(all_articles, 3) 
+    all_articles = ArticleModel.objects.filter(author_id=request.user).order_by('published_at')
+    paginator = Paginator(all_articles, 3)
+    current_datetime = now()
+
+    for article in all_articles:
+        article.is_unpublished = article.published_at > current_datetime
+
     return render (request, 'my_articles.html', context= {
         'all_articles':all_articles,
         'page_obj' : paginator.get_page(page),
+        'current_datetime':current_datetime
     })
 
 # @login_required(login_url='login')

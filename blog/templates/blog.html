@@ -25,7 +25,7 @@
                                     <article class="blog-card">
                                         <div class="blog-img-container">
                                             <a href="{%url 'blog/details' blog_slug=blog.slug%}"><img src="{{blog.picture.url}}" class="blog-img" alt="" /></a>
-                                            <p class="blog-date">{{blog.created_at | date:"F jS, Y"}}</p>
+                                            <p class="blog-date">{{blog.published_at | date:"F jS, Y"}}</p>
                                         </div>
                                         <!-- blog info -->
                                         <div class="blog-info">
