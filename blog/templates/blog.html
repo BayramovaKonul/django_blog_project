@@ -24,16 +24,16 @@
                                     <!-- single blog -->
                                     <article class="blog-card">
                                         <div class="blog-img-container">
-                                            <a href="{%url 'blog/details' blog_slug=blog.slug%}"><img src="{{blog.picture.url}}" class="blog-img" alt="" /></a>
+                                            <a href="{%url 'blog/details' slug=blog.slug%}"><img src="{{blog.picture.url}}" class="blog-img" alt="" /></a>
                                             <p class="blog-date">{{blog.created_at | date:"F jS, Y"}}</p>
                                         </div>
                                         <!-- blog info -->
                                         <div class="blog-info">
                                             <div class="blog-title">
-                                                <a href="{%url 'blog/details' blog_slug=blog.slug%}">
+                                                <a href="{%url 'blog/details' slug=blog.slug%}">
                                                     <h4>{{blog.title}}</h4>
                                                 </a>
-                                                <a href="{%url 'blog/details' blog_slug=blog.slug%}">
+                                                <a href="{%url 'blog/details' slug=blog.slug%}">
                                                     <p>{{blog.categories.first.name}}</p>
                                                 </a>
                                             </div>
@@ -47,7 +47,7 @@
                                                         <span><i class="fas fa-user"></i></span> {{blog.author.username}}
                                                     </p>
                                                 </a>
-                                                <a href="{%url 'blog/details' blog_slug=blog.slug%}">
+                                                <a href="{%url 'blog/details' slug=blog.slug%}">
                                                     <p>{% trans 'Read More...' %}</p>
                                                 </a>
                                             </div>
@@ -82,10 +82,10 @@
                                         <!-- blog info -->
                                         <div class="blog-info">
                                             <div class="blog-title">
-                                                <a href="{%url 'blog/details' blog_slug=posts.slug%}">
+                                                <a href="{%url 'blog/details' slug=posts.slug%}">
                                                     <h4>{{posts.title}}</h4>
                                                 </a>
-                                                <a href="{%url 'blog/details' blog_slug=posts.slug%}">
+                                                <a href="{%url 'blog/details' slug=posts.slug%}">
                                                     <p>{{posts.categories.first.name}}</p>
                                                 </a>
                                             </div>
@@ -94,12 +94,12 @@
                                             </p>
                                             <!-- blog footer -->
                                             <div class="blog-footer">
-                                                <a href="{%url 'blog/details' blog_slug=posts.slug%}">
+                                                <a href="{%url 'blog/details' slug=posts.slug%}">
                                                     <p>
                                                         <span><i class="fas fa-user"></i></span> {{posts.author.username}}
                                                     </p>
                                                 </a>
-                                                <a href="{%url 'blog/details' blog_slug=posts.slug%}">
+                                                <a href="{%url 'blog/details' slug=posts.slug%}">
                                                     <p>{% trans 'Read More...' %}</p>
                                                 </a>
                                             </div>

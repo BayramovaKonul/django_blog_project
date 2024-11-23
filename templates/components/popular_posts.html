@@ -5,7 +5,7 @@
                         <div class="underline"></div>
                         <div class="pl-3 pr-3">
                         {%for popular in recent_posts%}
-                            <a href="{%url 'blog/details' blog_slug=popular.slug%}" aria-current="true">
+                            <a href="{%url 'blog/details' slug=popular.slug%}" aria-current="true">
                                 <div class="row mb-3">
                                     <div class="col-4">
                                         <img src="{{popular.picture.url}}" class="thumbnail" alt="...">

@@ -15,8 +15,10 @@ from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, ListView
-
+from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView, FormView
+from django.urls import reverse_lazy
+from django import forms
+from django.urls import reverse
 # Create your views here.
 
 
@@ -109,34 +111,52 @@ def category_blog (request, category_slug):
     })
 
 
-def detail_blog (request,blog_slug):
-    details = get_object_or_404(ArticleModel, slug = blog_slug)
+def detail_blog (request,slug):
+    details = get_object_or_404(ArticleModel, slug = slug)
+    print (details.slug)
     comments = CommentModel.objects.filter(article = details).order_by('-created_at')
     blogs = ArticleModel.objects.all()
     recent_posts = blogs.order_by('-created_at')[:4]
-    categories = CategoryModel.objects.annotate(article_count=Count('articles')).order_by("-article_count").values('name', 'article_count', 'slug')
     form = CommentArticleForm()
+    categories = CategoryModel.objects.annotate(article_count=Count('articles')).order_by("-article_count").values('name', 'article_count', 'slug')
     return render(request, 'blog_detail.html', context={
-        'details' : details,
+        'details':details,
         'comments' : comments,
         'recent_posts' : recent_posts,
         'categories' : categories,
-        'form' : form
+        'form':form
     })
 
-@require_POST
-def post_comment(request, blog_slug):
-    details = get_object_or_404(ArticleModel, slug=blog_slug)
-    form = CommentArticleForm(request.POST)     
-    if form.is_valid():
-        comment_obj = form.save(commit=False)
-        comment_obj.user = request.user
-        comment_obj.article = details
-        comment_obj.save()
+#---------------------------------------------------- function-based view
+# @require_POST
+# def post_comment(request, blog_slug):
+#     details = get_object_or_404(ArticleModel, slug=blog_slug)
+#     form = CommentArticleForm(request.POST)     
+#     if form.is_valid():
+#         comment_obj = form.save(commit=False)
+#         comment_obj.user = request.user
+#         comment_obj.article = details
+#         comment_obj.save()
     
-    return redirect('blog/details', blog_slug=blog_slug)  # takes url name
+#     return redirect('blog/details', blog_slug=blog_slug)  # takes url name
 
 
+#------------------------------------------------- form view
+class CommentFormView(FormView):
+    form_class = CommentArticleForm
+    template_name = 'blog_detail.html'
+
+    def form_valid(self, form):
+        article = get_object_or_404(ArticleModel, slug=self.kwargs['slug'])
+        form.instance.user = self.request.user
+        form.instance.article = article
+        form.save()
+        return super().form_valid(form)
+    
+    def get_success_url(self): #since I need to override success_url, because it should dynamically generate the URL using slug
+        return reverse('blog/details', kwargs={'slug': self.kwargs['slug']})
+
+#--------------------------------- function-based view
 # @login_required(login_url='login')
 # def create_article(request):
 #     form = CreateArticleForm(request.POST or None, request.FILES or None)
@@ -153,25 +173,46 @@ def post_comment(request, blog_slug):
 #         'form' : form
 #     })
 
-class ArticlesView(LoginRequiredMixin, View):
-    http_method_names = ['get', 'post']
-    form_class = CreateArticleForm
+# #--------------------------------------- class-based view
+# class ArticlesView(LoginRequiredMixin, View):
+#     http_method_names = ['get', 'post']
+#     form_class = CreateArticleForm
 
-    def get(self, request):
-        form = self.form_class()
-        return render (request, 'create_article.html', context={
-        'form' : form
+#     def get(self, request):
+#         form = self.form_class()
+#         return render (request, 'create_article.html', context={
+#         'form' : form
+#         })
+#     # @method_decorator(login_required) - method based login_required
+#     def post(self, request):
+#         form = self.form_class(request.POST, request.FILES)
+#         if form.is_valid():
+#             article_obj = form.save(commit=False)
+#             article_obj.author = request.user
+#             with transaction.atomic():
+#                 article_obj.save()
+#                 form.save_m2m()  #to save the third table between articles and users (manytomany)
+#             return redirect("home")
+
+
+#----------------------------------------- Create view
+class CreateArticleView(CreateView):
+    model = ArticleModel
+    fields = ['title', 'content', 'picture', 'published_at', 'categories', 'tags']
+    template_name = 'create_article.html'
+    success_url = reverse_lazy('home')
+    
+    def get_form(self):  # customize the form before render
+        form = super().get_form()
+        form.fields['published_at'].widget = forms.DateTimeInput(attrs={
+            'class': 'form-control mb-3',
+            'type': 'datetime-local'
         })
-    # @method_decorator(login_required) - method based login_required
-    def post(self, request):
-        form = self.form_class(request.POST, request.FILES)
-        if form.is_valid():
-            article_obj = form.save(commit=False)
-            article_obj.author = request.user
-            with transaction.atomic():
-                article_obj.save()
-                form.save_m2m()  #to save the third table between articles and users (manytomany)
-            return redirect("home")
+        return form
+    
+    def form_valid(self, form): # additional logic before saving the object
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 @login_required(login_url='login')
@@ -184,6 +225,7 @@ def my_articles (request):
         'page_obj' : paginator.get_page(page),
     })
 
+#----------------------------------- function-based view
 # @login_required(login_url='login')
 # def edit_article(request, article_slug):
 #     article = get_object_or_404(ArticleModel, slug = article_slug, author_id = request.user)
@@ -198,33 +240,48 @@ def my_articles (request):
 #         'form' : form
 #     })
 
-class EditArticle(LoginRequiredMixin, View):
-    http_method_names = ['get', 'post']
-    form_class=EditArticleForm
+#--------------------------------- class-based view
+# class EditArticle(LoginRequiredMixin, View):
+#     http_method_names = ['get', 'post']
+#     form_class=EditArticleForm
 
-    def get_article(self):  
-        article_slug = self.kwargs.get('article_slug')  #article is common for both get and post request
-        article = get_object_or_404(ArticleModel, slug = article_slug, author_id = self.request.user)
-        return article
+#     def get_article(self):  
+#         article_slug = self.kwargs.get('article_slug')  #article is common for both get and post request
+#         article = get_object_or_404(ArticleModel, slug = article_slug, author_id = self.request.user)
+#         return article
 
-    def get(self, request, article_slug):
-        article = self.get_article()
-        form = self.form_class(instance=article)
-        return render(request, 'edit_article.html', context={
-        'form' : form
-    })
+#     def get(self, request, article_slug):
+#         article = self.get_article()
+#         form = self.form_class(instance=article)
+#         return render(request, 'edit_article.html', context={
+#         'form' : form
+#     })
 
-    def post(self, request, article_slug):
-        article = self.get_article()
-        form = self.form_class(request.POST, request.FILES, instance=article)
-        if form.is_valid():
-            form.save()
-            return redirect("my_articles")
+#     def post(self, request, article_slug):
+#         article = self.get_article()
+#         form = self.form_class(request.POST, request.FILES, instance=article)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("my_articles")
+        
+#------------------------------------ Update-view
+class UpdateArticleView(LoginRequiredMixin, UpdateView):
+    model = ArticleModel
+    template_name = 'edit_article.html'
+    success_url = reverse_lazy('my_articles')
+    fields = ['title', 'content', 'picture', 'published_at', 'categories', 'tags']
 
 
+# ------------------------------------ function-based view
+# @login_required(login_url='login')
+# def delete_article(request, article_slug):
+#     article = get_object_or_404(ArticleModel, slug = article_slug, author_id = request.user)
+#     article.delete()
+#     return redirect("my_articles")
 
-@login_required(login_url='login')
-def delete_article(request, article_slug):
-    article = get_object_or_404(ArticleModel, slug = article_slug, author_id = request.user)
-    article.delete()
-    return redirect("my_articles")
+
+# ----------------------------- delete-view
+class DeleteArticleView(LoginRequiredMixin, DeleteView):
+    model = ArticleModel
+    template_name = 'delete_article.html'
+    success_url = reverse_lazy('my_articles')
