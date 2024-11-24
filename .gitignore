@@ -3,4 +3,4 @@ media
 blog/models/abstract_models.py
 *__pycache__
 views.py
-
+.env
