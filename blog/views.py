@@ -182,17 +182,16 @@ def my_articles (request):
     current_datetime = now()
     filter_choice = request.GET.get('filter') 
 
-    if filter_choice == 'published':
-        all_articles = ArticleModel.objects.filter(author_id=request.user, published_at__lte=current_datetime)
-    elif filter_choice == 'unpublished':
-        all_articles = ArticleModel.objects.filter(author_id=request.user, published_at__gt=current_datetime)    
-    else:
-        all_articles = ArticleModel.objects.filter(author_id=request.user).order_by('published_at')
-        
-    paginator = Paginator(all_articles, 3)
+    all_articles = ArticleModel.objects.filter(author_id=request.user).order_by('published_at')
 
-    # for article in all_articles:
-    #     article.is_unpublished = article.published_at > current_datetime
+    if filter_choice == 'published':
+        filtered_articles = all_articles.filter(published_at__lte=current_datetime)
+    elif filter_choice == 'unpublished':
+        filtered_articles = all_articles.filter(published_at__gt=current_datetime) 
+    else:
+        filtered_articles = all_articles
+        
+    paginator = Paginator(filtered_articles, 3)
 
     return render (request, 'my_articles.html', context= {
         'page_obj' : paginator.get_page(page),
