@@ -2,4 +2,5 @@ db.sqlite3
 media
 blog/models/abstract_models.py
 *__pycache__
+views.py
 
