@@ -1,0 +1,47 @@
+ {% load i18n %}
+ 
+ <div class="section-title mt-5">
+                        <h2>{% trans 'Recent Posts' %}</h2>
+                        <div class="underline"></div>
+                    </div>
+                    <section class="section" id="featured">
+                        <!-- featured-center -->
+                        <div class="section-center featured-center ">
+                            <div class="row justify-content-start">
+                            {%for posts in recent_posts%}
+                                <div class="col-lg-6">
+                                    <!-- single blog -->
+                                    <article class="blog-card">
+                                        <!-- blog info -->
+                                        <div class="blog-info">
+                                            <div class="blog-title">
+                                                <a href="{%url 'blog/details' slug=posts.slug%}">
+                                                    <h4>{{posts.title}}</h4>
+                                                </a>
+                                                <a href="{%url 'blog/details' slug=posts.slug%}">
+                                                    <p>{{posts.categories.first.name}}</p>
+                                                </a>
+                                            </div>
+                                            <p>
+                                                {{posts.content|safe| truncatechars_html:200}}
+                                            </p>
+                                            <!-- blog footer -->
+                                            <div class="blog-footer">
+                                                <a href="{%url 'blog/details' slug=posts.slug%}">
+                                                    <p>
+                                                        <span><i class="fas fa-user"></i></span> {{posts.author.username}}
+                                                    </p>
+                                                </a>
+                                                <a href="{%url 'blog/details' slug=posts.slug%}">
+                                                    <p>{% trans 'Read More...' %}</p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <!-- end of single blog -->
+                                </div>
+                            {%endfor%}
+
+                            </div>
+                        </div>
+                    </section>

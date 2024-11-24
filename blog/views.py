@@ -23,8 +23,17 @@ from django.urls import reverse
 
 
 def home (request):
+    all_articles = ArticleModel.objects.all()[1:]
+    recent_posts = ArticleModel.objects.all().order_by('-created_at')[:6]
+    categories = CategoryModel.objects.all()[:6]
+    blogs = ArticleModel.objects.all()[:4]
     messages.success(request, "Welcome to the website")
-    return render(request, 'index.html')
+    return render(request, 'index.html', context={
+        'all_articles':all_articles,
+        'recent_posts':recent_posts,
+        'categories':categories,
+        'blogs':blogs
+    })
 
 # def about (request):
 #     welcome_message = _("Welcome to my blog")

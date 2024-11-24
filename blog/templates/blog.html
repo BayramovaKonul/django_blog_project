@@ -67,7 +67,7 @@
                     </section>
                     <!-- end of featured blogs -->
 
-                    <div class="section-title mt-5">
+                    {% comment %} <div class="section-title mt-5">
                         <h2>{% trans 'Recent Posts' %}</h2>
                         <div class="underline"></div>
                     </div>
@@ -111,7 +111,8 @@
 
                             </div>
                         </div>
-                    </section>
+                    </section> {% endcomment %}
+                     {%include "components/recent_posts.html" %}
                 </div>
 
                 <div class="col-lg-4">

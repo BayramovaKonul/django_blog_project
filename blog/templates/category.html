@@ -23,16 +23,16 @@
                                     <!-- single blog -->
                                     <article class="blog-card">
                                         <div class="blog-img-container">
-                                            <a href="{%url 'blog/details' blog_slug=c_blogs.slug%}"><img src="{{c_blogs.picture.url}}" class="blog-img" alt="" /></a>
+                                            <a href="{%url 'blog/details' slug=c_blogs.slug%}"><img src="{{c_blogs.picture.url}}" class="blog-img" alt="" /></a>
                                             <p class="blog-date">{{c_blogs.created_at | date:"d M, Y"}}</p>
                                         </div>
                                         <!-- blog info -->
                                         <div class="blog-info">
                                             <div class="blog-title">
-                                                <a href="{%url 'blog/details' blog_slug=c_blogs.slug%}">
+                                                <a href="{%url 'blog/details' slug=c_blogs.slug%}">
                                                     <h4>{{c_blogs.title}}</h4>
                                                 </a>
-                                                <a href="{%url 'blog/details' blog_slug=c_blogs.slug%}">
+                                                <a href="{%url 'blog/details' slug=c_blogs.slug%}">
                                                     <p>{{c_blogs.categories.first.slug | capfirst}}</p>
                                                 </a>
                                             </div>
@@ -41,12 +41,12 @@
                                             </p>
                                             <!-- blog footer -->
                                             <div class="blog-footer">
-                                                <a href="{%url 'blog/details' blog_slug=c_blogs.slug%}">
+                                                <a href="{%url 'blog/details' slug=c_blogs.slug%}">
                                                     <p>
                                                         <span><i class="fas fa-user"></i></span> {{c_blogs.author.username}}
                                                     </p>
                                                 </a>
-                                                <a href="{%url 'blog/details' blog_slug=c_blogs.slug%}">
+                                                <a href="{%url 'blog/details' slug=c_blogs.slug%}">
                                                     <p>{% trans 'Read More...' %}</p>
                                                 </a>
                                             </div>
