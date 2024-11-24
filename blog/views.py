@@ -91,8 +91,8 @@ class AllArticlesView(ListView):
                  
 
 def category_blog (request, category_slug):
-    categories = CategoryModel.objects.annotate(article_count=Count('articles')).order_by("-article_count").values('name', 'article_count', 'slug')
     category_obj = get_object_or_404(CategoryModel, slug = category_slug)  # check the table to find asked category_slug
+    categories = CategoryModel.objects.annotate(article_count=Count('articles')).order_by("-article_count").values('name', 'article_count', 'slug')
     category_blogs = category_obj.articles.all() # get all articles from table based on the category using related name
     blogs = ArticleModel.objects.all()
     recent_posts = blogs.order_by('-created_at')[:4]
@@ -179,17 +179,24 @@ class ArticlesView(LoginRequiredMixin, View):
 @login_required(login_url='login')
 def my_articles (request):
     page = request.GET.get('page')
-    all_articles = ArticleModel.objects.filter(author_id=request.user).order_by('published_at')
-    paginator = Paginator(all_articles, 3)
     current_datetime = now()
+    filter_choice = request.GET.get('filter') 
 
-    for article in all_articles:
-        article.is_unpublished = article.published_at > current_datetime
+    if filter_choice == 'published':
+        all_articles = ArticleModel.objects.filter(author_id=request.user, published_at__lte=current_datetime)
+    elif filter_choice == 'unpublished':
+        all_articles = ArticleModel.objects.filter(author_id=request.user, published_at__gt=current_datetime)    
+    else:
+        all_articles = ArticleModel.objects.filter(author_id=request.user).order_by('published_at')
+        
+    paginator = Paginator(all_articles, 3)
+
+    # for article in all_articles:
+    #     article.is_unpublished = article.published_at > current_datetime
 
     return render (request, 'my_articles.html', context= {
-        'all_articles':all_articles,
         'page_obj' : paginator.get_page(page),
-        'current_datetime':current_datetime
+        'current_datetime':current_datetime,
     })
 
 # @login_required(login_url='login')
