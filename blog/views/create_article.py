@@ -12,6 +12,9 @@ from django.urls import reverse
 from ..forms.post_comment import CommentArticleForm
 from django import forms
 from django.urls import reverse_lazy
+import logging
+
+logger = logging.getLogger("base")
 
 #--------------------------------- function-based view
 # @login_required(login_url='login')
@@ -60,13 +63,17 @@ class CreateArticleView(CreateView):
     success_url = reverse_lazy('home')
     
     def get_form(self):  # customize the form before render
+        logger.info (f"Id:{self.request.user.id} load the creating the article form")
         form = super().get_form()
         form.fields['published_at'].widget = forms.DateTimeInput(attrs={
             'class': 'form-control mb-3',
             'type': 'datetime-local'
         })
+        logger.info ("Published_date added")
         return form
     
     def form_valid(self, form): # additional logic before saving the object
         form.instance.author = self.request.user
+        logger.info (f"Id:{self.request.user.id} created the article")
         return super().form_valid(form)
+    
