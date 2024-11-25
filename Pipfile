@@ -11,6 +11,9 @@ pillow = "*"
 django-ckeditor = "*"
 django-crispy-forms = "*"
 crispy-bootstrap4 = "*"
+django-environ = "*"
+python-json-logger = "*"
+django-log-request-id = "*"
 
 [dev-packages]
 

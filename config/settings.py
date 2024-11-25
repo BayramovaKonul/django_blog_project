@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+
+env = environ.Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vk51sbzc7xgwu6bm-c_^)(&gh0w%c-%a6^!f-u872w(vxnao)w'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -49,6 +53,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'log_request_id.middleware.RequestIDMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -57,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'account.custom_middleware.login_register.PreventAuthenticatedUsers'
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -82,20 +88,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test_project',
-        'USER': 'postgres',
-        'PASSWORD': 'konulkonul133',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
+    'default': env.db()  #takes database_url
 }
 
 
@@ -156,3 +154,46 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_URL = 'user/login'
 LOGIN_REDIRECT_URL = 'home'
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    'filters': {
+        'request_id': {
+            '()': 'log_request_id.filters.RequestIDFilter'
+        }
+    },
+    "formatters":{
+        "simple":{
+            "format": "{asctime} - {levelname} - {name}- [%(request_id)s]- {message} -{filename} - {funcName} - {lineno}",
+            "style": "{"
+        },
+        "json":{
+            "()": "pythonjsonlogger.jsonlogger.JsonFormatter",   # json configuration
+            "format": "{asctime} {levelname} {name} [%(request_id)s] {message} {filename} {funcName} {lineno}",
+            "style": "{"
+        }
+    },
+    "handlers":{
+            "console":{
+                "class": "logging.StreamHandler",
+                "formatter": "json",
+                "filters": ["request_id"]
+            },
+            "file":{
+                "class": "logging.FileHandler",
+                "filename": "logs/all_logs.log",
+                "formatter": "json",
+                "filters": ["request_id"]
+            }
+        },
+    "loggers": {
+        "base": {
+            "level": env("LOG_LEVEL"),
+            "handlers": ["console", "file"]
+        },
+        # "error_logger": {
+        #     "level": "ERROR"
+        # }
+    }
+}

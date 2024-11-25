@@ -33,7 +33,7 @@
                         </div>
                         <div class="comment mt-5 p-5">
                             <h3>{% trans 'Get Comment!' %}</h3>
-                            <form class="mt-4" action= "{% url 'post-comment' blog_slug=details.slug %}" method="post">
+                            <form class="mt-4" action= "{% url 'post-comment' slug=details.slug %}" method="post">
                              {% csrf_token %}
                                 <div class="row">
                                 </div>
