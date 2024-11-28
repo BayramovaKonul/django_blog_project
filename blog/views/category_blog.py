@@ -9,7 +9,7 @@ from ..forms.contact_us import ContactUsForm
 from django.db.models import Q, Count
 from django.views.generic import TemplateView, ListView
 from django.core.paginator import Paginator
-from blog.templatetags.custom_tags import get_categories, get_articles, get_recent_posts
+from blog.templatetags.custom_tags import get_categories, get_recent_posts
 import logging
 
 logger = logging.getLogger("base")
@@ -17,7 +17,7 @@ logger = logging.getLogger("base")
 def category_blog (request, category_slug):
     category_obj = get_object_or_404(CategoryModel, slug = category_slug)  # check the table to find asked category_slug
     category_blogs = category_obj.articles.all() # get all articles from table based on the category using related name
-    categories = get_categories()
+    # categories = get_categories()
     recent_posts = get_recent_posts
     page = request.GET.get('page') 
     search = request.GET.get('search')
@@ -28,14 +28,14 @@ def category_blog (request, category_slug):
             logger.info(f"{request.user} searched for {search} and results have been shown")
         else:
             logger.info(f"{search} can not be found")
-            
+
     paginator = Paginator(category_blogs, 2)
    
     return render(request, 'category.html', context={
         'page_obj' : paginator.get_page(page),
         'category_name' : category_obj.name,
         'recent_posts' : recent_posts,
-        'categories' : categories
+        # 'categories' : categories
     })
 
 class AllArticlesView(ListView):

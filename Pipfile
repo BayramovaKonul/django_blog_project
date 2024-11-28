@@ -14,6 +14,8 @@ crispy-bootstrap4 = "*"
 django-environ = "*"
 python-json-logger = "*"
 django-log-request-id = "*"
+boto3 = "*"
+django-storages = "*"
 
 [dev-packages]
 

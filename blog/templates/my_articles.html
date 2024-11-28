@@ -15,6 +15,13 @@
   </thead>
   <tbody>
   
+  <form method="get" action="">
+    <select name="filter" onchange="this.form.submit()" class="form-select">
+        <option value="" {% if not request.GET.filter %}selected{% endif %}>All articles</option>
+        <option value="published" {% if request.GET.filter == "published" %}selected{% endif %}>Published</option>
+        <option value="unpublished" {% if request.GET.filter == "unpublished" %}selected{% endif %}>Unpublished</option>
+    </select>
+  </form>
 
   {% for article in page_obj%}
     <tr>
@@ -23,8 +30,7 @@
       <td>{{article.modified_at}}</td>
       <td>
       <a href="{% url 'edit-article' slug=article.slug%}" class="btn btn-outline-secondary btn-sm">Edit</a>
-      <a href="{%url 'delete-article' slug=article.slug%}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this article?');">Delete</a>
-      </td>
+      <a href="{%url 'delete-article' slug=article.slug%}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this article?');">Delete</a></td>
     </tr>
   {%endfor%}
 

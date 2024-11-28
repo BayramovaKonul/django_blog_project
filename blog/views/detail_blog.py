@@ -9,13 +9,12 @@ from ..forms.contact_us import ContactUsForm
 from django.db.models import Q, Count
 from django.views.generic import TemplateView, ListView
 from ..forms.post_comment import CommentArticleForm
-from blog.templatetags.custom_tags import get_categories, get_articles, get_recent_posts
+from blog.templatetags.custom_tags import get_categories, get_recent_posts
 
 def detail_blog (request,slug):
     details = get_object_or_404(ArticleModel, slug = slug)
     print (details.slug)
     comments = CommentModel.objects.filter(article = details).order_by('-created_at')
-    blogs = get_articles()
     recent_posts = get_recent_posts()
     form = CommentArticleForm()
     categories = get_categories()

@@ -8,7 +8,7 @@ from account.models import CustomUserModel
 from ..forms.contact_us import ContactUsForm
 from django.db.models import Q, Count
 from django.views.generic import TemplateView, ListView
-from blog.templatetags.custom_tags import get_categories, get_articles, get_recent_posts
+from blog.templatetags.custom_tags import get_categories, get_recent_posts
 
 # def blogs (request):
 #     page = request.GET.get('page')  # GET - method returns dictionary from URL, get - dictionary method
