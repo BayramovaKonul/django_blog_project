@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 django-autoslug = "*"
 django = "==5.1"
-psycopg2 = "*"
 pillow = "*"
 django-ckeditor = "*"
 django-crispy-forms = "*"
@@ -16,8 +15,11 @@ python-json-logger = "*"
 django-log-request-id = "*"
 boto3 = "*"
 django-storages = "*"
+psycopg2-binary = "*"
+gunicorn = "*"
 
 [dev-packages]
+psycopg2 = "*"
 
 [requires]
 python_version = "3.12"

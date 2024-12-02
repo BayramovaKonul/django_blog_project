@@ -8,398 +8,346 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-01 18:15+0400\n"
+"POT-Creation-Date: 2024-12-01 18:23+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 #: .\account\views\login.py:48
 msgid "Username or Password is incorrect"
-msgstr "İstifadəçi adı və ya şifrə yanlışdır."
+msgstr ""
 
 #: .\account\views\login.py:51
-#, fuzzy
-#| msgid "Welcome to my blog"
 msgid "Welcome to the website"
-msgstr "Səhifəmə xoş gəldiniz"
+msgstr "Добро пожаловать на сайт"
 
 #: .\blog\models\abstract_models.py:5 .\blog\models\comment.py:14
 #: .\blog\models\tag.py:8
 msgid "created_at"
-msgstr "yaradılıb"
+msgstr "создано_в"
 
 #: .\blog\models\abstract_models.py:6
 msgid "modified_at"
-msgstr "dəyişiklik edilib"
+msgstr "изменено_в"
 
 #: .\blog\models\article.py:15
 msgid "author"
-msgstr "müəllif"
+msgstr "писатель"
 
 #: .\blog\models\article.py:16
 msgid "title"
-msgstr "başlıq"
+msgstr "название"
 
 #: .\blog\models\article.py:18 .\blog\models\comment.py:13
 msgid "content"
-msgstr "məzmun"
+msgstr "содержание"
 
 #: .\blog\models\article.py:19
 msgid "published_at"
-msgstr "yayınlanıb"
+msgstr "опубликовано_в"
 
 #: .\blog\models\article.py:20
 msgid "picture"
-msgstr "şəkil"
+msgstr "картина"
 
 #: .\blog\models\article.py:21
-#, fuzzy
-#| msgid "Categories"
 msgid "categories"
-msgstr "Kateqoriyalar"
+msgstr "категории"
 
 #: .\blog\models\article.py:22
 msgid "tags"
-msgstr "təglər"
+msgstr "теги"
 
 #: .\blog\models\article.py:26 .\blog\models\comment.py:12
 msgid "article"
-msgstr "məqalə"
+msgstr "статья"
 
 #: .\blog\models\article.py:27
 msgid "Articles"
-msgstr "Məqalələr"
+msgstr "Cтатьи"
 
 #: .\blog\models\category.py:6 .\blog\models\tag.py:6
 msgid "name"
-msgstr "ad"
+msgstr "имя"
 
 #: .\blog\models\category.py:11
-#, fuzzy
-#| msgid "Categories"
 msgid "Category"
-msgstr "Kateqoriyalar"
+msgstr "Категория"
 
 #: .\blog\models\category.py:12 .\blog\templates\index.html:125
 #: .\templates\components\categories.html:5
 msgid "Categories"
-msgstr "Kateqoriyalar"
+msgstr "Категории"
 
 #: .\blog\models\comment.py:10
 msgid "user"
-msgstr "istifadəçi"
+msgstr "потребитель"
 
 #: .\blog\models\comment.py:18
 msgid "comment"
-msgstr "rəy"
+msgstr "комментарий"
 
 #: .\blog\models\comment.py:19
 msgid "Comments"
-msgstr "Rəylər"
+msgstr "Комментарии"
 
 #: .\blog\models\contact_us.py:18 .\blog\templates\contact.html:38
 msgid "email"
-msgstr "E-poçt"
+msgstr "электронная почта"
 
 #: .\blog\models\contact_us.py:19
 msgid "subject"
-msgstr "mövzu"
+msgstr "предмет"
 
 #: .\blog\models\contact_us.py:20
 msgid "message"
-msgstr "mesaj"
+msgstr "сообщение"
 
 #: .\blog\models\contact_us.py:21
 msgid "stage"
-msgstr "mərhələ"
+msgstr "этап"
 
 #: .\blog\models\contact_us.py:23
 msgid "assigned_to"
-msgstr "təyin edilib"
+msgstr "назначено_кому"
 
 #: .\blog\models\contact_us.py:24
 msgid "resolved_at"
-msgstr "həll edilib"
+msgstr "разрешен_в"
 
 #: .\blog\models\contact_us.py:28 .\blog\models\contact_us.py:29
 msgid "ContactUs"
-msgstr "Bizimlə əlaqə"
+msgstr "Связаться с нами"
 
 #: .\blog\models\tag.py:12
 msgid "Tag"
-msgstr "Təg"
+msgstr "Ярлык"
 
 #: .\blog\models\tag.py:13
 msgid "Tags"
-msgstr "Təglər"
+msgstr "Теги"
 
 #: .\blog\templates\about.html:10
 msgid "About me"
-msgstr "Haqqımda"
+msgstr "Обо мне"
 
 #: .\blog\templates\blog.html:13
 msgid "All Post"
-msgstr "Bütün postlar"
+msgstr "Все посты"
 
 #: .\blog\templates\blog.html:51 .\blog\templates\category.html:50
 #: .\templates\components\recent_posts.html:36
 msgid "Read More..."
-msgstr "Daha çox ..."
+msgstr "Читать далее..."
 
 #: .\blog\templates\blog.html:59
 msgid "No blogs available"
-msgstr "Məqalə tapılmadı"
+msgstr "Нет доступных блогов"
 
 #: .\blog\templates\blog.html:124 .\blog\templates\category.html:78
 msgid "Search"
-msgstr "Axtarış"
+msgstr "Поиск"
 
 #: .\blog\templates\blog.html:129 .\blog\templates\blog_detail.html:102
 #: .\blog\templates\category.html:84
 msgid "Follow Us"
-msgstr "Bizi izləyin"
+msgstr "Подписывайтесь на нас"
 
 #: .\blog\templates\blog_detail.html:35
-#, fuzzy
-#| msgid "Comments"
 msgid "Get Comment!"
-msgstr "Bizə rəy yazın! "
+msgstr "Напишите комментарий!"
 
 #: .\blog\templates\blog_detail.html:48
-#, fuzzy
-#| msgid "comment"
 msgid "Post comment"
-msgstr "Paylaş"
+msgstr "Оставить комментарий"
 
 #: .\blog\templates\category.html:66
-#, fuzzy
-#| msgid "All Post"
 msgid "All blogs"
-msgstr "Bütün postlar"
+msgstr "Все блоги"
 
 #: .\blog\templates\contact.html:11
-#, fuzzy
-#| msgid "ContactUs"
 msgid "Contact me"
-msgstr "Bizimlə əlaqə"
+msgstr "Свяжитесь со мной"
 
 #: .\blog\templates\contact.html:24
 msgid "address"
-msgstr "Adres"
+msgstr "адрес"
 
 #: .\blog\templates\contact.html:51
 msgid "telephone"
-msgstr "Əlaqə nömrəsi"
+msgstr "телефон"
 
 #: .\blog\templates\contact.html:61
-#, fuzzy
-#| msgid "ContactUs"
 msgid "Contact us"
-msgstr "Bizimlə əlaqə"
+msgstr "Связаться с нами"
 
 #: .\blog\templates\contact.html:89
 msgid "submit here"
-msgstr "Təsdiqləyin"
+msgstr "отправьте здесь"
 
 #: .\blog\templates\create_article.html:16
-#, fuzzy
-#| msgid "article"
 msgid "Add your article"
-msgstr "Məqaləni əlavə et"
+msgstr "Добавьте свою статью"
 
 #: .\blog\templates\delete_article.html:7
 msgid "Are you sure you want to delete this article?"
-msgstr "Bu məqaləni silmək istədiyinə əminsən?"
+msgstr "Вы уверены, что хотите удалить эту статью?"
 
 #: .\blog\templates\delete_article.html:10
-#, fuzzy
-#| msgid "title"
 msgid "Title:"
-msgstr "Başlıq"
+msgstr "Заголовок"
 
 #: .\blog\templates\delete_article.html:11
-#, fuzzy
-#| msgid "published_at"
 msgid "Published at:"
-msgstr "Yayınlanıb"
+msgstr "Опубликовано в:"
 
 #: .\blog\templates\delete_article.html:12
-#, fuzzy
-#| msgid "content"
 msgid "Content:"
-msgstr "Məzmun"
+msgstr "Cодержимое:"
 
 #: .\blog\templates\delete_article.html:17
 msgid "Yes, Delete:"
-msgstr "Bəli, sil"
+msgstr "Да, удалить:"
 
 #: .\blog\templates\delete_article.html:18
 msgid "Cancel:"
-msgstr "Ləğv et"
+msgstr "Отмена:"
 
 #: .\blog\templates\index.html:78 .\templates\components\pagination.html:7
 #: .\templates\components\pagination.html:11
 msgid "Previous"
-msgstr "Əvvəlki"
+msgstr "Предыдущий"
 
 #: .\blog\templates\index.html:82 .\templates\components\pagination.html:22
 #: .\templates\components\pagination.html:26
 msgid "Next"
-msgstr "Növbəti"
+msgstr "Следующий"
 
 #: .\blog\templates\index.html:96
-#, fuzzy
-#| msgid "Popular Posts"
 msgid "Popular posts"
-msgstr "Məşhur postlar"
+msgstr ""
 
 #: .\blog\templates\index.html:152 .\blog\templates\index.html:202
-#, fuzzy
-#| msgid "All Post"
 msgid "All posts"
-msgstr "Bütün postlar"
-
-#: .\blog\templates\my_articles.html:11
-#, fuzzy
-#| msgid "title"
-msgid "Titles:"
-msgstr "Başlıq"
+msgstr "Популярные посты"
 
 #: .\blog\templates\my_articles.html:12
-#, fuzzy
-#| msgid "modified_at"
-msgid "Modified at:"
-msgstr "Dəyişiklik edilib"
+msgid "Titles:"
+msgstr "Названия:"
 
 #: .\blog\templates\my_articles.html:13
-msgid "What do you want to do?:"
-msgstr "Nə etmək istəyirsən?"
+msgid "Modified at:"
+msgstr "Изменено:"
 
-#: .\blog\templates\my_articles.html:20
-#, fuzzy
-#| msgid "Articles"
-msgid "All articles:"
-msgstr "Məqalələr"
+#: .\blog\templates\my_articles.html:14
+msgid "What do you want to do?:"
+msgstr "Что ты хочешь делать?:"
 
 #: .\blog\templates\my_articles.html:21
-#, fuzzy
-#| msgid "published_at"
-msgid "Published:"
-msgstr "yayınlanmış"
+msgid "All articles:"
+msgstr "Все статьи:"
 
 #: .\blog\templates\my_articles.html:22
-#, fuzzy
-#| msgid "published_at"
-msgid "Unpublished:"
-msgstr "yayınlanmamış"
+msgid "Published:"
+msgstr "Опубликовано:"
 
-#: .\blog\templates\my_articles.html:32
-msgid "Edit:"
-msgstr "Düzəliş et"
+#: .\blog\templates\my_articles.html:23
+msgid "Unpublished:"
+msgstr "Неопубликовано:"
 
 #: .\blog\templates\my_articles.html:33
+msgid "Edit:"
+msgstr "Редактировать:"
+
+#: .\blog\templates\my_articles.html:34
 msgid "Delete:"
-msgstr "Sil"
+msgstr "Удалить:"
 
 #: .\config\urls.py:25
 msgid "admin/"
-msgstr "esas_user"
+msgstr "админ/"
 
 #: .\templates\components\footer.html:36
 msgid "All rights reserved"
-msgstr "Bütün haqqlar qorunur"
+msgstr "Все права защищены"
 
 #: .\templates\components\footer.html:47
-#, fuzzy
-#| msgid "Select Language:"
 msgid "Change Language"
-msgstr "Dili dəyiş:"
+msgstr "Изменить язык"
 
 #: .\templates\components\header.html:15
 msgid "Home"
-msgstr "Əsas"
+msgstr "главная страница"
 
 #: .\templates\components\header.html:16
-#, fuzzy
-#| msgid "About me"
 msgid "About"
-msgstr "Haqqımızda"
+msgstr "O нас"
 
 #: .\templates\components\header.html:17
-#, fuzzy
-#| msgid "ContactUs"
 msgid "Contact"
-msgstr "Bizimlə əlaqə"
+msgstr "Контакт"
 
 #: .\templates\components\header.html:18
 msgid "Blog"
-msgstr "Məqalələr"
+msgstr "Блог"
 
 #: .\templates\components\header.html:22
-#, fuzzy
-#| msgid "user"
 msgid "User"
-msgstr "İstifadəçi"
+msgstr "Пользователь"
 
 #: .\templates\components\header.html:27
-#, fuzzy
-#| msgid "article"
 msgid "My articles"
-msgstr "Mənim məqalələrim"
+msgstr "Мои статьи"
 
 #: .\templates\components\header.html:28
 msgid "Create Your Article"
-msgstr "Məqaləni yarat"
+msgstr "Создайте свою статью"
 
 #: .\templates\components\header.html:29
 msgid "Change Password"
-msgstr "Şifrəni dəyiş"
+msgstr "Изменить пароль"
 
 #: .\templates\components\header.html:30
 msgid "Update your Profile"
-msgstr "Profilində düzəliş et"
+msgstr "Обновите свой профиль"
 
 #: .\templates\components\header.html:31
 msgid "Logout"
-msgstr "Çıxış"
+msgstr "Выйти"
 
 #: .\templates\components\header.html:33
 msgid "Login"
-msgstr "Daxil ol"
+msgstr "логин"
 
 #: .\templates\components\header.html:34
 msgid "Register"
-msgstr "Qeydiyyatdan keç"
+msgstr "Зарегистрироваться"
 
 #: .\templates\components\newsletter.html:6
 msgid "Want latest post info and updates?"
-msgstr "Ən son yeniliklərdən xəbərdar olmaq istəyirsiniz?"
+msgstr "Хотите получать последнюю информацию и обновления?"
 
 #: .\templates\components\newsletter.html:7
 msgid "Sign up for newsletter and stay up to date"
-msgstr "Xəbər bülleteni üçün qeydiyyatdan keçin və yeniliklərdən xəbərdar olun"
+msgstr "Подпишитесь на рассылку и будьте в курсе событий"
 
 #: .\templates\components\newsletter.html:10
-#, fuzzy
-#| msgid "email"
 msgid "your email"
-msgstr "Sənin E-poçt"
+msgstr "ваш адрес электронной почты"
 
 #: .\templates\components\newsletter.html:11
 msgid "Submit"
-msgstr "Təsdiqləyin"
+msgstr "подавать"
 
 #: .\templates\components\popular_posts.html:4
 msgid "Popular Posts"
-msgstr "Məşhur postlar"
+msgstr "Популярные посты"
 
 #: .\templates\components\recent_posts.html:4
 msgid "Recent Posts"
-msgstr "Son postlar"
-
-#~ msgid "Welcome to my blog"
-#~ msgstr "Səhifəmə xoş gəldiniz"
+msgstr "Последние статьи"

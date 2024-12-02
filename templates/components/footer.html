@@ -5,14 +5,14 @@
         <ul class="social-icons mt-5">
             <!-- single item -->
             <li class="pr-3">
-                <a href="https://www.twitter.com" class="social-icon">
+                <a href="https://facebook.com" class="social-icon">
                     <i class="fab fa-facebook"></i>
                 </a>
             </li>
             <!-- end of single item -->
             <!-- single item -->
             <li>
-                <a href="https://www.twitter.com" class="social-icon">
+                <a href="https://linkedin.com" class="social-icon">
                     <i class="fab fa-linkedin"></i>
                 </a>
             </li>
@@ -26,14 +26,7 @@
             <!-- end of single item -->
             <!-- single item -->
             <li>
-                <a href="https://www.twitter.com" class="social-icon">
-                    <i class="fab fa-behance"></i>
-                </a>
-            </li>
-            <!-- end of single item -->
-            <!-- single item -->
-            <li>
-                <a href="https://www.twitter.com" class="social-icon">
+                <a href="https://www.instagram.com" class="social-icon">
                     <i class="fab fa-instagram"></i>
                 </a>
             </li>
@@ -44,14 +37,13 @@
         <form action="{% url 'set_language' %}" method="post" style="display: inline;">
             {% csrf_token %}
             <input name="next" type="hidden" value="{{ redirect_to }}" />
-            <label for="language-select" style="margin-right: 10px;">{% trans 'Select Language:' %}</label>
+            {% comment %} <label for="language-select" style="margin-right: 10px;">{% trans 'Select Language:' %}</label> {% endcomment %}
             <select name="language" id="language-select" style="padding: 5px;">
                  <option value="en">🇬🇧 English</option>
                  <option value="az">🇦🇿 Azerbaijani</option>
-                 <option value="es">🇪🇸 Spanish</option>
                  <option value="ru">🇷🇺 Russian</option>
             </select>
-            <input type="submit" value="Change Language" style="margin-left: 10px; padding: 5px 10px;">
+            <input type="submit" value="{% trans 'Change Language' %}" style="margin-left: 10px; padding: 5px 10px;">
         </form>
 
     </footer>

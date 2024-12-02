@@ -1,5 +1,6 @@
  {% load i18n %}
- 
+ {% load custom_tags %}
+ {% get_recent_posts as recent_posts%}
  <div class="section-title mt-5">
                         <h2>{% trans 'Recent Posts' %}</h2>
                         <div class="underline"></div>

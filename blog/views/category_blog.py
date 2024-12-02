@@ -17,7 +17,6 @@ logger = logging.getLogger("base")
 def category_blog (request, category_slug):
     category_obj = get_object_or_404(CategoryModel, slug = category_slug)  # check the table to find asked category_slug
     category_blogs = category_obj.articles.all() # get all articles from table based on the category using related name
-    # categories = get_categories()
     recent_posts = get_recent_posts
     page = request.GET.get('page') 
     search = request.GET.get('search')
@@ -35,7 +34,6 @@ def category_blog (request, category_slug):
         'page_obj' : paginator.get_page(page),
         'category_name' : category_obj.name,
         'recent_posts' : recent_posts,
-        # 'categories' : categories
     })
 
 class AllArticlesView(ListView):

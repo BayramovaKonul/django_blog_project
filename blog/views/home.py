@@ -16,14 +16,15 @@ def home (request):
     else:
         logger.info(f"Home Page is visited by id: anonymous user")
 
+    print(get_recent_posts)
     all_articles = ArticleModel.objects.all()[1:]
-    recent_posts = get_recent_posts()
     categories = CategoryModel.objects.all()[:6]
     all_blogs = ArticleModel.objects.all()[:4]
+    recent_posts = ArticleModel.objects.all().order_by('-created_at')[:6]
     messages.success(request, "Welcome to the website")
     return render(request, 'index.html', context={
         'all_articles':all_articles,
-        'recent_posts':recent_posts,
         'categories':categories,
-        'blogs':all_blogs
+        'blogs':all_blogs,
+        'recent_posts':recent_posts
     })

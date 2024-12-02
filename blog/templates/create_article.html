@@ -1,5 +1,6 @@
 {%extends "base.html" %}
 {%load static%}
+{% load i18n%}
 {%load crispy_forms_tags %} 
 {%block title%} Create Article {%endblock%}
 
@@ -11,7 +12,7 @@
 {% csrf_token %}
 {{form.media}}
 {{form | crispy}}
-<input type = "submit" value = "Add your article" class = "btn btn-danger">
+<input type = "submit" value = "{% trans 'Add your article' %}" class = "btn btn-danger">
 
 </form>
 

@@ -1,14 +1,11 @@
 {% load custom_tags %}
+{% get_categories as categories%}
 {%load i18n%}
 <article class="sidebar-left">
     <h4 class="text-center">{% trans 'Categories' %}</h4>
         <div class="underline"></div>
             <ul class="list-group">
-            {% if get_categories %}
-                <p>Categories are available.</p>
-            {%endif%}
-            {{get_categories}}
-                {%for category in get_categories %}
+                {%for category in categories %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a href="{% url 'category' category_slug=category.slug %}">{{category.name}}</a>
                             <span class="badge bg-primary rounded-pill">{{category.article_count}}</span>
