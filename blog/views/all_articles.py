@@ -9,6 +9,7 @@ from ..forms.contact_us import ContactUsForm
 from django.db.models import Q, Count
 from django.views.generic import TemplateView, ListView
 from blog.templatetags.custom_tags import get_categories, get_recent_posts
+from django.utils.timezone import now
 
 # def blogs (request):
 #     page = request.GET.get('page')  # GET - method returns dictionary from URL, get - dictionary method
@@ -34,7 +35,9 @@ class AllArticlesView(ListView):
     page_kwarg = 'page'
 
     def get_queryset(self):
-        queryset = super().get_queryset() 
+        current_datetime = now()
+        queryset = super().get_queryset()
+        queryset = queryset.filter(published_at__lte=current_datetime)
         search = self.request.GET.get('search')
         if search:
             queryset = queryset.filter(Q(title__icontains=search) |

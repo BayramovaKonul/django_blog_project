@@ -1,6 +1,8 @@
 from django import template
 from blog.models import ArticleModel, CategoryModel
 from django.db.models import Q, Count
+from django.utils.timezone import now
+
 import logging
 
 logger = logging.Logger("base")
@@ -14,6 +16,10 @@ def get_categories():
 
 @register.simple_tag
 def get_recent_posts():
-    recent_posts = ArticleModel.objects.all().order_by('-created_at')[:4]
+    current_datetime = now()
+    recent_posts = (
+    ArticleModel.objects.filter(published_at__lte=current_datetime)
+    .order_by('-created_at')[:4])
+
     logger.info(f"Recent posts: {recent_posts}")
     return recent_posts

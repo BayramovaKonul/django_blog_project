@@ -83,9 +83,12 @@
                     <article class="sidebar-left">
                         <!-- img container -->
                         <div class="service-img-container">
-                            <!-- img -->
+                            {%if details.author.avatar%}
                             <img src="{{details.author.avatar.url}}" class="service-img" alt="single service" />
-                            <!-- service icon -->
+                            {%else%}
+                            <img src="https://blogarticlesapp.s3.eu-north-1.amazonaws.com/media/user_profile_pictures/avatar.jpg" class="service-img" alt="single service" />
+                            {%endif%}
+                            
                             <span class="service-icon">
                                 <i class="fas fa-user fa-fw"></i>
                             </span>
