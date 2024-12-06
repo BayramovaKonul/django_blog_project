@@ -2,14 +2,13 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '13.60.38.141', 'konultheexplorer.com', 'www.konultheexplorer.com']
 
 DATABASES = {
     'default': env.db()  #takes database_url
 }
 
 
-# Password validation
 
 AUTH_PASSWORD_VALIDATORS = [
     {

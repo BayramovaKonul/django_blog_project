@@ -10,6 +10,8 @@ from django.db.models import Q, Count
 from django.views.generic import TemplateView, ListView, FormView
 from django.urls import reverse
 from ..forms.post_comment import CommentArticleForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 #---------------------------------------------------- function-based view
 # @require_POST
@@ -26,7 +28,7 @@ from ..forms.post_comment import CommentArticleForm
 
 
 #------------------------------------------------- form view
-class CommentFormView(FormView):
+class CommentFormView(LoginRequiredMixin, FormView):
     form_class = CommentArticleForm
     template_name = 'blog_detail.html'
 

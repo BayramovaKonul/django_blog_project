@@ -10,6 +10,7 @@ from django.db.models import Q, Count
 from django.views.generic import TemplateView, ListView
 from django.core.paginator import Paginator
 from blog.templatetags.custom_tags import get_categories, get_recent_posts
+from django.utils.timezone import now
 import logging
 
 logger = logging.getLogger("base")
@@ -44,7 +45,9 @@ class AllArticlesView(ListView):
     page_kwarg = 'page'
 
     def get_queryset(self):
-        queryset = super().get_queryset() 
+        current_datetime = now()
+        queryset = super().get_queryset()
+        queryset = queryset.filter(published_at__lte=current_datetime) 
         search = self.request.GET.get('search')
         if search:
             queryset = queryset.filter(Q(title__icontains=search) |
