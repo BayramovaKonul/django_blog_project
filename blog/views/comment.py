@@ -8,9 +8,10 @@ from account.models import CustomUserModel
 from ..forms.contact_us import ContactUsForm
 from django.db.models import Q, Count
 from django.views.generic import TemplateView, ListView, FormView
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from ..forms.post_comment import CommentArticleForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 
 
 #---------------------------------------------------- function-based view
@@ -33,6 +34,9 @@ class CommentFormView(LoginRequiredMixin, FormView):
     template_name = 'blog_detail.html'
 
     def form_valid(self, form):
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect(reverse_lazy('login'))
+        
         article = get_object_or_404(ArticleModel, slug=self.kwargs['slug'])
         form.instance.user = self.request.user
         form.instance.article = article
