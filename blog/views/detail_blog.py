@@ -17,7 +17,7 @@ def detail_blog (request,slug):
     details = get_object_or_404(ArticleModel, slug = slug)
     print (details.slug)
     comments = CommentModel.objects.filter(article = details).order_by('-created_at')
-    recent_posts = ArticleModel.objects.filter(published_at__lte=current_datetime)
+    recent_posts = ArticleModel.objects.filter(published_at__lte=current_datetime)[:4]
     form = CommentArticleForm()
     categories = get_categories()
     return render(request, 'blog_detail.html', context={
