@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '13.60.38.141', 'konultheexplorer.com', 'www.konultheexplorer.com']
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 DATABASES = {
     'default': env.db()  #takes database_url
