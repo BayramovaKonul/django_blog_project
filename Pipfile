@@ -17,6 +17,11 @@ boto3 = "*"
 django-storages = "*"
 psycopg2-binary = "*"
 gunicorn = "*"
+opencv-python = "*"
+face-recognition = "*"
+flask = "*"
+tesseract = "*"
+pytesseract = "*"
 
 [dev-packages]
 psycopg2 = "*"

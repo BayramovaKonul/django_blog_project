@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Identity Verification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 30px;
+    }
+    #video, #recorded {
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      width: 640px; /* Increased width */
+      height: 480px; /* Increased height */
+    }
+    #instructions, #countdown {
+      font-size: 20px;
+      margin-top: 20px;
+      color: #2c3e50;
+      font-weight: bold;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Identity Verification</h2>
+  <div id="beforeStart">
+    <p>Please follow these steps during your video:</p>
+    <ol style="text-align: left; max-width: 400px; margin: 0 auto;">
+      <li>Look straight into the camera</li>
+      <li>Blink and smile</li>
+      <li>Turn your head left and right</li>
+      <li>Hold your ID card next to your face</li>
+    </ol>
+    <button onclick="countdownToRecording()">Start</button>
+  </div>
+
+  <div id="countdown"></div>
+  <div id="instructions"></div>
+
+  <video id="video" autoplay muted></video>
+  <br>
+  <button onclick="stopRecording()" style="display: none;" id="stopBtn">Stop Recording</button>
+  <br><br>
+
+  <video id="recorded" controls></video>
+  <br>
+  <button onclick="uploadVideo()" style="display: none;" id="uploadBtn">Upload Video</button>
+
+  <script>
+    let stream, mediaRecorder, recordedChunks = [];
+    const steps = [
+      "Look straight into the camera",
+      "Blink and smile",
+      "Turn your head left and right",
+      "Hold your ID card next to your face"
+    ];
+
+    async function startRecording() {
+      recordedChunks = [];
+      stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      document.getElementById('video').srcObject = stream;
+
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = e => recordedChunks.push(e.data);
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: 'video/mp4' });
+        const url = URL.createObjectURL(blob);
+        document.getElementById('recorded').src = url;
+      };
+
+      mediaRecorder.start();
+      showStepInstructions();
+      document.getElementById('stopBtn').style.display = 'inline-block';
+    }
+
+    function stopRecording() {
+      mediaRecorder.stop();
+      stream.getTracks().forEach(track => track.stop());
+      document.getElementById('stopBtn').style.display = 'none';
+      document.getElementById('uploadBtn').style.display = 'inline-block';
+      document.getElementById('instructions').innerText = "Recording complete!";
+    }
+
+    function uploadVideo() {
+      const blob = new Blob(recordedChunks, { type: 'video/mp4' });
+      const formData = new FormData();
+      formData.append("video", blob, "user_video.mp4");
+
+      fetch('/upload_video', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => alert("Upload success:\n" + JSON.stringify(data)))
+      .catch(err => alert("Error uploading video: " + err));
+    }
+
+    function countdownToRecording() {
+      let count = 3;
+      const display = document.getElementById("countdown");
+      document.getElementById("beforeStart").style.display = "none";
+      display.innerText = "";
+
+      const interval = setInterval(() => {
+        display.innerText = count > 0 ? `Recording in ${count}...` : "Recording!";
+        if (count === 0) {
+          clearInterval(interval);
+          display.innerText = "";
+          startRecording();
+        }
+        count--;
+      }, 1000);
+    }
+
+    function showStepInstructions() {
+      const instructionsBox = document.getElementById("instructions");
+      let index = 0;
+      instructionsBox.innerText = steps[index];
+
+      const interval = setInterval(() => {
+        index++;
+        if (index < steps.length) {
+          instructionsBox.innerText = steps[index];
+        } else {
+          clearInterval(interval);
+        }
+      }, 4000); // Change instruction every 4 seconds
+    }
+  </script>
+
+</body>
+</html>
